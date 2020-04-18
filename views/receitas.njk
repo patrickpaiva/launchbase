@@ -1,0 +1,23 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+    <title>Foodfy - Receitas</title>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="container-receitas"> 
+            <div class="cards">
+                {% set length = recipes.length if recipes.length < recipes.length + 1 %}
+                {% for i in range(0, length) %}
+                    <div class="card" id="{{i}}">
+                        <img src="{{recipes[i].image}}" alt="{{recipes[i].title}}" class="cover">
+                        <p class="nome-receita">{{recipes[i].title}}</p>
+                        <p class="feito-por">por {{recipes[i].author}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <script src="/script3.js"></script>
+    </main>
+{% endblock %}

@@ -1,0 +1,111 @@
+<div class="item">
+    <div class="input-title">Imagem da receita</div>
+    <div class="input-content">
+        <input 
+            type="url" 
+            name="image"
+            placeholder="http://"
+            value="{{recipe.image}}"
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div class="input-title">Nome da receita</div>
+    <div class="input-content">
+        <input 
+            type="text" 
+            name="title"
+            value="{{recipe.title}}"
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div class="input-title">Autor da receita</div>
+    <div class="input-content">
+        <input 
+            type="text" 
+            name="author"
+            value="{{recipe.author}}"
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div class="input-title">Ingredientes</div>
+        <div id="ingredients">
+
+            {% if recipe.ingredients %}
+
+                {% for ingredient in recipe.ingredients %}
+                    <div class="ingredient">
+                        <input 
+                            type="text" 
+                            name="ingredients[]"
+                            value="{{ingredient}}"
+                        >
+                        <span id="remove-step" class="material-icons">highlight_off</span>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+                <div class="ingredient">
+                        <input 
+                            type="text" 
+                            name="ingredients[]"
+                            value=""
+                        >
+                        <span id="remove-step" class="material-icons">highlight_off</span>
+                </div>
+            {% endif %}
+
+        </div>
+    <button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
+    <script src="/script4.js"></script>
+</div>
+
+<div class="item">
+    <div class="input-title">Modo de preparo</div>
+        <div id="steps">
+            {% if recipe.directions %}
+
+                {% for direction in recipe.directions %}
+                    <div class="step">
+                        <input 
+                            type="text" 
+                            name="directions[]"
+                            value="{{direction}}"
+                        >
+                        <span id="remove-step" class="material-icons">highlight_off</span>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+                <div class="step">
+                        <input 
+                            type="text" 
+                            name="directions[]"
+                            value=""
+                        >
+                        <span id="remove-step" class="material-icons">highlight_off</span>
+                </div>
+            {% endif %}
+        </div>
+    <button type="button" class="add-step">Adicionar novo passo</button>´
+    <script src="/script5.js"></script>
+</div>
+
+<div class="item">
+    <div class="input-title">Informações adicionais</div>
+    <div class="input-content">
+        <input 
+            type="text" 
+            name="information"
+            value="{{recipe.information}}"
+        >
+    </div>
+</div>
+
+<input type="hidden" name="id" value="{{recipe.id}}">
+

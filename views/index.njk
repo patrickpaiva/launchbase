@@ -1,0 +1,35 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+    <title>Foodfy - Seja bem-vindo!</title>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="melhores-receitas">
+            <div class="textos">
+                <h1>As melhores receitas</h1>
+                <p>Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.</p>
+            </div>
+            <div class="chef">
+                <img src="img/chef.png" alt="Chef">
+            </div>
+        </div>
+        <div class="mais-acessadas">
+            <h2>Mais acessadas</h2>
+                <div class="cards">
+
+                {% set length = recipes.length if recipes.length < recipes.length +1 %}
+                {% for i in range(0, length) %}
+                    <div class="card" id="{{i}}">
+                        <img src="{{recipes[i].image}}" alt="{{recipes[i].title}}">
+                        <p class="nome-receita">{{recipes[i].title}}</p>
+                        <p class="feito-por">por {{recipes[i].author}}</p>
+                    </div>
+                {% endfor %}
+                </div>
+
+        </div>
+        <script src="/script3.js"></script>
+    </main>
+{% endblock %}

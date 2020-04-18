@@ -1,0 +1,445 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+header {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.container {
+    width: 940px;
+    margin: auto;
+}
+
+.container .row {
+    height: 27px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container .menu {
+    padding-left: 120px;
+}
+
+.container .menu a {
+    font-family: 'Roboto', sans-serif;
+    color: #111111;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration: none;
+}
+
+.container .menu a:hover {
+    color: #e9bba6;
+    transition: 300ms;
+}
+
+.container a {
+    padding-left: 30px;
+}
+
+.container .logo {
+    padding-left: 0px;
+}
+
+.melhores-receitas {
+    margin: auto;
+    width: 940px;
+    height: 366px;
+    background-color: #FBDFDB;
+    border-radius: 30px;
+    position: relative;
+}
+
+.melhores-receitas .textos {
+    width: 316px;
+    float: left;
+    margin-top: 117px;
+    margin-left: 60px;
+}
+
+.melhores-receitas .textos h1 {
+    font-weight: bold;
+    font-size: 32px;
+    color: #111111;
+    line-height: 38px;
+}
+
+.melhores-receitas .textos p {
+    font-size: 18px;
+    line-height: 28px;
+    opacity: 0.7;
+    color: black;
+}
+
+.melhores-receitas .chef {
+    float: right;
+    margin-right: 100px;
+}
+
+.melhores-receitas .chef img {
+    padding-top: 66px;
+}
+
+/*==== CARDS ====*/
+
+.mais-acessadas {
+    width: 940px;
+    margin: auto;
+    margin-top: 50px;
+}
+.mais-acessadas h2{
+    width: 100%;
+    margin: 0;
+    text-align: left;
+    padding-bottom: 20px;
+}
+.cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+.card img {
+    width: 300px;
+    height: 140px;
+    border-radius: 15px;
+    object-fit: cover;
+    
+}
+
+.card .nome-receita {
+    font-size: 18px;
+    line-height: 21px;
+    color: #111111;
+    margin: 0;
+    padding-top: 20px;
+}
+
+.card .feito-por {
+    margin: 0;
+    padding-top: 5px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #777777;
+}
+
+.card {
+    cursor: pointer;
+}
+
+footer {
+    background-color: #eeeeee;
+    margin-top: 50px;
+    width: 100%;
+}
+
+footer p {
+    font-size: 14px;
+    line-height: 16px;
+    color: #999999;
+    text-align: center;
+    padding: 23px;
+}
+
+/*==== MODAL ====*/
+
+.modal-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.modal {
+    width: 660px;
+    height: 413px;
+    background-color: white;
+    border-radius: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -207px;
+    margin-left: -330px;    
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.modal-content .nome-receita {
+    font-size: 24px;
+    line-height: 28px;
+    color: #111111;
+    margin-bottom: 5px;
+}
+
+.modal-content .feito-por {
+    font-size: 18px;
+    line-height: 21px;
+    color: #777777;
+    margin-bottom: 60px;
+}
+
+.modal-content a {
+    font-size: 16px;
+    color: #999999;
+    cursor: pointer;
+}
+
+.modal-content a:hover {
+    color: #e9bba6;
+}
+
+.modal-content img {
+    width: 600px;
+    height: 200px;
+    border-radius: 15px;
+    margin: 30px;
+}
+/*==== MODAL ACTIVE ====*/
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+/*==== pagina sobre ====*/
+
+.sobre {
+    width: 940px;
+    margin: auto;
+}
+
+.sobre h1 {
+    font-size: 24px;
+    line-height: 28px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.sobre p {
+    font-size: 18px;
+    line-height: 28px;
+    color: #444444;
+}
+
+.sobre h2 {
+    font-size: 20px;
+    color: #111111;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/*==== pagina receitas ====*/
+
+.container-receitas {
+    width: 940px;
+    margin: auto;
+}
+
+/*=== pagina recipe ===*/
+
+.recipe-container {
+    width: 940px;
+    margin: auto;
+}
+
+.recipe-container img {
+    width: 940px;
+    height: 280px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.recipe-container h1 {
+    text-align: center;
+    padding-top: 50px;
+    font-size: 36px;
+    color: #111111;
+    line-height: 42px;
+}
+
+.recipe-author {
+    margin-top: 4px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 24px;
+    color: #777777;
+}
+
+.recipe-container h2 {
+    font-size: 24px;
+    color: #111111;
+    line-height: 28px;
+    margin-bottom: 20px;
+}
+.ingredients, .preparation {
+    font-size: 18px;
+    color: #444444;
+    line-height: 28px;
+    margin-top: 20px;
+    margin-bottom: 39px;
+}
+
+.ingredients ul li, .preparation ul li {
+    list-style-position: inside;
+}
+
+.information {
+    font-size: 18px;
+    color: #444444;
+    line-height: 28px;
+    white-space: pre-wrap;
+}
+
+.showi, .hidei, .showp, .hidep, .showf, .hidef {
+    font-size: 12px;
+    line-height: 14px;
+    color: #999999;
+    text-decoration: none;
+    visibility: visible;
+    cursor: pointer;
+}
+
+.showi:hover, .hidei:hover, .showp:hover, .hidep:hover, .showf:hover, .hidef:hover {
+    color: #e9bba6;
+}
+
+.showi.active, .showp.active, .showf.active {
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+}
+
+.hidei.active, .hidep.active, .hidef.active {
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+}
+
+.ingredients.active, .preparation.active, .information.active {
+    visibility: hidden;
+    display: none;
+}
+
+/* ADMIN */
+/* CREATE */
+.container-admin {
+    width: 100%;
+    background-color: black;
+    padding: 27px 0px;
+}
+
+.container-admin .row {
+    width: 940px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#header-admin {
+    margin-top: 0;
+}
+
+/* CREATE FORM */
+.card-form {
+    width: 940px;
+    margin: 55px auto;
+}
+
+.create-title {
+    display: grid;
+    grid-template-columns: 1fr 139px;
+    margin-bottom: 20px;
+}
+
+.create-title h3 {
+    font-size: 24px;
+}
+
+.create-title button {
+    font-family: 'Roboto', sans-serif;
+    background-color: #6558C3;
+    color: white;
+    font-size: 16px;
+    padding: 9px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.card-form .item {
+    padding-bottom: 30px;
+}
+
+.card-form .item .input-title {
+    padding-bottom: 10px;
+    font-size: 16px;
+    color: #111111;
+    font-weight: bold;
+}
+
+.card-form .item .input-content input {
+    width: 100%;
+    height: 50px;
+    outline: none;
+    color: #555;
+    font-size: 18px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    height: 50px;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+.add-ingredient,
+.add-step {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #6558C3;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#ingredients,
+#steps {
+    padding-bottom: 10px;
+    /* font-size: 16px;
+    color: #111111;
+    font-weight: bold; */
+}
+
+.ingredient input,
+.step input {
+    width: 97%;
+    height: 50px;
+    outline: none;
+    color: #555;
+    font-size: 18px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    height: 50px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+#ingredients .ingredient:first-child input,
+#steps .step:first-child input {
+    margin-top: 0;
+}
+
+
+
+
+
+
