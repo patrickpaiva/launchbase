@@ -12,6 +12,7 @@ routes.get("/admin/recipes/create", recipes.create);
 routes.post("/admin/recipes", recipes.post)
 
 routes.get("/admin/recipes/:id/edit", recipes.edit);
-routes.put("/admin/recipes", recipes.put);
+routes.put("/admin/recipes/:id", recipes.put);
+routes.delete("/admin/recipes/:id", recipes.delete);
 
 module.exports = routes

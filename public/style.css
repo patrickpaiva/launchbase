@@ -354,17 +354,25 @@ footer p {
 /* CREATE FORM */
 .card-form {
     width: 940px;
-    margin: 55px auto;
+    margin: auto;
 }
 
 .create-title {
+    width: 940px;
+    margin: 55px auto;
     display: grid;
-    grid-template-columns: 1fr 139px;
+    grid-template-columns: 1fr 102px 139px;
     margin-bottom: 20px;
 }
 
 .create-title h3 {
     font-size: 24px;
+}
+
+#form-delete button {
+    width: 92px;
+    margin-right: 10px;
+    background-color: #DC4747;
 }
 
 .create-title button {

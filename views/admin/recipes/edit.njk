@@ -16,15 +16,24 @@
             </div>
         </header>
         <main>
-            <form action="/admin/recipes?_method=PUT" class="card-form" method="POST">
-                <div class="create-title">
-                    <h3>Editando receita</h3>
-                    <button type="submit">Salvar receita</button>
-                </div>
 
+            <div class="create-title">
+                <h3>Editando receita</h3>
+
+                <form id="form-delete" action="/admin/recipes/{{recipe.id}}?_method=DELETE" method="post">
+                    <button type="SUBMIT">Deletar</button>
+                </form>
+
+                <button form="putForm" type="submit">Salvar receita</button>
+
+            </div>
+
+            <form id="putForm" action="/admin/recipes/{{recipe.id}}?_method=PUT" class="card-form" method="POST">
+                
                 {% include 'admin/recipes/fields.njk' %}
 
             </form>
+            
         </main>
 
         <footer>

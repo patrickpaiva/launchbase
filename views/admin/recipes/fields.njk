@@ -45,7 +45,7 @@
                             name="ingredients[]"
                             value="{{ingredient}}"
                         >
-                        <span id="remove-step" class="material-icons">highlight_off</span>
+                        <a id="idi{{recipe.ingredients.indexOf(ingredient)}}" onClick="removeDiv1(id)"><span id="remove-step" class="material-icons">highlight_off</span></a>
                     </div>
                 {% endfor %}
 
@@ -56,18 +56,19 @@
                             name="ingredients[]"
                             value=""
                         >
-                        <span id="remove-step" class="material-icons">highlight_off</span>
+                        <a id="idi0" onClick="removeDiv1(id)"><span id="remove-step" class="material-icons">highlight_off</span></a>
                 </div>
             {% endif %}
 
         </div>
-    <button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
-    <script src="/script4.js"></script>
+    <button type="button" onClick="addIngredient()" class="add-ingredient">Adicionar novo ingrediente</button>
+    {% include 'admin/recipes/script4.njk' %}
 </div>
 
 <div class="item">
     <div class="input-title">Modo de preparo</div>
         <div id="steps">
+
             {% if recipe.directions %}
 
                 {% for direction in recipe.directions %}
@@ -77,7 +78,7 @@
                             name="directions[]"
                             value="{{direction}}"
                         >
-                        <span id="remove-step" class="material-icons">highlight_off</span>
+                        <a id="id{{recipe.directions.indexOf(direction)}}" onClick="removeDiv(id)"><span class="material-icons">highlight_off</span></a>
                     </div>
                 {% endfor %}
 
@@ -88,12 +89,13 @@
                             name="directions[]"
                             value=""
                         >
-                        <span id="remove-step" class="material-icons">highlight_off</span>
+                        <a id="id0" onClick="removeDiv(id)"><span class="material-icons">highlight_off</span></a>
                 </div>
             {% endif %}
         </div>
-    <button type="button" class="add-step">Adicionar novo passo</button>´
-    <script src="/script5.js"></script>
+    <button type="button" onClick="addStep()" class="add-step">Adicionar novo passo</button>
+    
+    {% include 'admin/recipes/script5.njk' %}
 </div>
 
 <div class="item">
@@ -106,6 +108,4 @@
         >
     </div>
 </div>
-
-<input type="hidden" name="id" value="{{recipe.id}}">
 

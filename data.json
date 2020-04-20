@@ -2,6 +2,29 @@
   "recipes": [
     {
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/burger.png",
+      "title": "Triplo bacon burger878858",
+      "author": "Jorge Relato",
+      "ingredients": [
+        "3 kg de carne moída (escolha uma carne magra e macia)",
+        "300 g de bacon moído",
+        "1 ovo",
+        "3 colheres (sopa) de farinha de trigo",
+        "3 colheres (sopa) de tempero caseiro: feito com alho, sal, cebola, pimenta e cheiro verde processados no liquidificador",
+        "30 ml de água gelada"
+      ],
+      "directions": [
+        "Misture todos os ingredientes muito bem e amasse para que fique tudo muito bem misturado.",
+        "Faça porções de 90 g a 100 g.",
+        "Forre um plástico molhado em uma bancada e modele os hambúrgueres utilizando um aro como base.",
+        "Faça um de cada vez e retire o aro logo em seguida.",
+        "Forre uma assadeira de metal com plástico, coloque os hambúrgueres e intercale camadas de carne e plásticos (sem apertar).",
+        "Faça no máximo 4 camadas por forma e leve para congelar.",
+        "Retire do congelador, frite ou asse e está pronto."
+      ],
+      "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres!  Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface."
+    },
+    {
+      "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/burger.png",
       "title": "Triplo bacon burger",
       "author": "Jorge Relato",
       "ingredients": [
@@ -21,36 +44,11 @@
         "Faça no máximo 4 camadas por forma e leve para congelar.",
         "Retire do congelador, frite ou asse e está pronto."
       ],
-      "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres! \n\n Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface."
+      "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres!  Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface."
     },
     {
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/burger.png",
-      "title": "Triplo bacon burger2",
-      "author": "Jorge Relato",
-      "ingredients": [
-        "3 kg de carne moída (escolha uma carne magra e macia)",
-        "300 g de bacon moído",
-        "1 ovo",
-        "3 colheres (sopa) de farinha de trigo",
-        "3 colheres (sopa) de tempero caseiro: feito com alho, sal, cebola, pimenta e cheiro verde processados no liquidificador",
-        "30 ml de água gelada"
-      ],
-      "directions": [
-        "Misture todos os ingredientes muito bem e amasse para que fique tudo muito bem misturado.",
-        "Faça porções de 90 g a 100 g.",
-        "Forre um plástico molhado em uma bancada e modele os hambúrgueres utilizando um aro como base.",
-        "Faça um de cada vez e retire o aro logo em seguida.",
-        "Forre uma assadeira de metal com plástico, coloque os hambúrgueres e intercale camadas de carne e plásticos (sem apertar).",
-        "Faça no máximo 4 camadas por forma e leve para congelar.",
-        "Retire do congelador, frite ou asse e está pronto.",
-        "teste"
-      ],
-      "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres!  Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface.",
-      "id": "1"
-    },
-    {
-      "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/burger.png",
-      "title": "Triplo bacon burger3",
+      "title": "Triplo bacon burger432434",
       "author": "Jorge Relato",
       "ingredients": [
         "3 kg de carne moída (escolha uma carne magra e macia)",
@@ -69,11 +67,11 @@
         "Faça no máximo 4 camadas por forma e leve para congelar.",
         "Retire do congelador, frite ou asse e está pronto."
       ],
-      "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres! \n\n Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface."
+      "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres!  Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface."
     },
     {
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/burger.png",
-      "title": "Triplo bacon burger4",
+      "title": "Triplo bacon burger878456",
       "author": "Jorge Relato",
       "ingredients": [
         "3 kg de carne moída (escolha uma carne magra e macia)",
@@ -92,49 +90,46 @@
         "Faça no máximo 4 camadas por forma e leve para congelar.",
         "Retire do congelador, frite ou asse e está pronto."
       ],
-      "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres! \n\n Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface."
+      "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres!  Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface."
     },
     {
-      "image": "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=640&q=960",
+      "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/burger.png",
+      "title": "Triplo bacon burger867864",
+      "author": "Jorge Relato",
       "ingredients": [
-        "Pão",
-        "queijo"
+        "3 kg de carne moída (escolha uma carne magra e macia)",
+        "300 g de bacon moído",
+        "1 ovo",
+        "3 colheres (sopa) de farinha de trigo",
+        "3 colheres (sopa) de tempero caseiro: feito com alho, sal, cebola, pimenta e cheiro verde processados no liquidificador",
+        "30 ml de água gelada"
       ],
       "directions": [
-        "frita",
-        "come"
+        "Misture todos os ingredientes muito bem e amasse para que fique tudo muito bem misturado.",
+        "Faça porções de 90 g a 100 g.",
+        "Forre um plástico molhado em uma bancada e modele os hambúrgueres utilizando um aro como base.",
+        "Faça um de cada vez e retire o aro logo em seguida.",
+        "Forre uma assadeira de metal com plástico, coloque os hambúrgueres e intercale camadas de carne e plásticos (sem apertar).",
+        "Faça no máximo 4 camadas por forma e leve para congelar.",
+        "Retire do congelador, frite ou asse e está pronto."
       ],
-      "information": "mensagem teste"
+      "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres!  Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface."
     },
     {
-      "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=640&q=960",
-      "title": "Salada Mediterrânea",
-      "author": "Eiliv-Sonas Aceron",
+      "image": "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=640&q=960",
+      "title": "Sopa",
+      "author": "Paia Demais",
       "ingredients": [
-        "Mato",
-        "Mais mato"
+        "folha verde",
+        "folha verde",
+        "agua suja"
       ],
       "directions": [
-        "Mistura",
-        "Mistura mais"
+        "mistura",
+        "teste",
+        "coma logo"
       ],
       "information": "Agora come"
-    },
-    {
-      "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=640&q=426",
-      "title": "Comida Gourmet",
-      "author": "Jay Wennington",
-      "ingredients": [
-        "Prato",
-        "Comida feia",
-        "Vinho"
-      ],
-      "directions": [
-        "Mistura",
-        "Mistura mais",
-        "come"
-      ],
-      "information": "Vai passar fome"
     }
   ]
 }
