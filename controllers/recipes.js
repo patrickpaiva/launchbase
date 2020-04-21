@@ -18,6 +18,20 @@ exports.show = function (req, res) {
     return res.render("recipe", { item: data.recipes[recipeIndex]})
 }
 
+exports.admrecipe = function (req, res) {
+    const recipeIndex = req.params.id;
+
+    const recipe = {
+        ...data.recipes[recipeIndex],
+        index: recipeIndex
+    }
+    return res.render("admin/recipes/recipes-adm", { item: recipe})
+}
+
+exports.admpanel = function(req, res){
+    return res.render("admin/recipes/adm-panel", {recipes: data.recipes})
+}
+
 exports.create = function (req, res) {
     return res.render('admin/recipes/create')
 }
@@ -40,7 +54,7 @@ exports.post = function (req, res) {
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function(err){
         if (err) return res.send('Write file error!')
 
-        return res.redirect(`../recipes/${idRecipe}`)
+        return res.redirect(`/admin/recipes/${idRecipe}/recipes-admpanel`)
 
     })
 }
@@ -62,7 +76,7 @@ exports.put = function(req, res) {
     fs.writeFile('data.json', JSON.stringify(data, null, 2), function(err) {
         if(err) return('Writing file error!')
 
-        return res.redirect(`/recipes/${recipeIndex}`)
+        return res.redirect(`/admin/recipes/${recipeIndex}/recipes-admpanel`)
     })
 
 
@@ -98,5 +112,5 @@ exports.delete = function(req, res) {
     fs.writeFile('data.json', JSON.stringify(data, null, 2), function(err) {
         if(err) return('Writing file error!')
 
-        return res.redirect(`/receitas`)
+        return res.redirect(`/admin/recipes/adm-panel`)
     })}

@@ -1,0 +1,38 @@
+{% extends "admin/recipes/layout-adm.njk" %}
+
+{% block head %}
+    <title>Detalhes da Receita {{item.title}}</title>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="edit-panel">
+        <h2>Receita: {{item.title}}</h2>
+        <a href="/admin/recipes/{{item.index}}/edit">Editar receita</a>
+    </div>
+    <div class="recipe-container">
+        <img src="{{item.image}}" alt="{{item.title}}">
+        <h1>{{item.title}}</h1>
+        <p class="recipe-author">por {{item.author}}</p>
+        <h2>Ingredientes <a class="showi active">MOSTRAR</a> <a class="hidei">ESCONDER</a></h2>
+        <div class="ingredients">
+            <ul>
+                {% for ingredient in item.ingredients %}
+                <li>{{ingredient}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h2>Modo de preparo <a class="showp active">MOSTRAR</a> <a class="hidep">ESCONDER</a></h2>
+        <div class="preparation">
+            <ul>
+                {% for direction in item.directions %}
+                <li>{{direction}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h2>Informações Adicionais <a class="showf active">MOSTRAR</a> <a class="hidef">ESCONDER</a></h2>
+        <p class="information">{{item.information}}</p>
+    </div>
+    <script src="/script2.js"></script>
+</main>
+{% endblock %}

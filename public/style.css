@@ -24,7 +24,8 @@ header {
     flex-wrap: wrap;
 }
 
-.container .menu {
+.container .menu,
+.container-admin .menu {
     padding-left: 120px;
 }
 
@@ -347,6 +348,19 @@ footer p {
     flex-wrap: wrap;
 }
 
+.container-admin .menu a {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    font-size: 16px;
+    line-height: 19px;
+    text-decoration: none;
+}
+
+.container-admin .menu a:hover {
+    color: #e9bba6;
+    transition: 300ms;
+}
+
 #header-admin {
     margin-top: 0;
 }
@@ -445,6 +459,108 @@ footer p {
 #steps .step:first-child input {
     margin-top: 0;
 }
+
+/* recipe-adm */
+.edit-panel {
+    width: 940px;
+    margin: auto;
+    margin-bottom: 24px;
+    padding-top: 25px;
+    display: grid;
+    grid-template-columns: 1fr 136px;
+}
+
+.edit-panel a {
+    font-family: 'Roboto', sans-serif;
+    background-color: #6558C3;
+    color: white;
+    font-size: 16px;
+    padding: 9px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* ADM-PANEL */
+.container-admpanel {
+    width: 940px;
+    margin: auto;
+}
+
+
+
+.cards-adm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 0px
+}
+.card-adm img {
+    width: 172px;
+    height: 80px;
+    border-radius: 8.57px;
+    object-fit: cover;
+    float: left;
+    
+}
+
+.cards-adm .cards-panel-texts {
+    width: 250px;
+    float: left;
+}
+.card-adm .cards-panel-texts .nome-receita {
+    width: 250px;
+    font-size: 18px;
+    line-height: 21px;
+    color: #111111;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.card-adm .cards-panel-texts .feito-por {
+    padding-top: 5px;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #777777;
+    margin-bottom: 10px;
+}
+
+.card-adm .cards-panel-texts a {
+    text-decoration: none;
+    color: #6558C3;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+.link-admpanel {
+    width: 940px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 136px;
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+.container-admpanel .link-admpanel h2 {
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.container-admpanel .link-admpanel a {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    background-color: #6558C3;
+    color: white;
+    font-size: 16px;
+    padding: 9px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+
 
 
 

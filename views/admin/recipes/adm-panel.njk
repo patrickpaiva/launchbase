@@ -1,0 +1,31 @@
+{% extends "admin/recipes/layout-adm.njk" %}
+
+{% block head %}
+    <title>Foodfy - Painel de Controle</title>
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="container-admpanel">
+        <div class="link-admpanel">
+            <h2>Gerenciar receitas</h2>
+            <a href="/admin/recipes/create">Criar receita</a>
+        </div>
+        <div class="cards-adm">
+            {% set length = recipes.length if recipes.length < recipes.length + 1 %}
+            {% for i in range(0, length) %}
+                <div class="card-adm" id="{{i}}">
+                    <img src="{{recipes[i].image}}" alt="{{recipes[i].title}}" class="cover">
+                    <div class="cards-panel-texts">
+                        <p class="nome-receita">{{recipes[i].title}}</p>
+                        <p class="feito-por">por {{recipes[i].author}}</p>
+                        <a href="/admin/recipes/{{i}}/recipes-admpanel">Visualizar</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,43 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-       <title>Foodfy - Editar receita</title>
-        <link rel="stylesheet" href="/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-    </head>
-    <body>
-        <header id="header-admin">
-            <div class="container-admin">
-                <div class="row">
-                    <a href="/" class="logo"><img src="/img/logoWhite.png" alt="Foodfy"></a>
-                </div>
-            </div>
-        </header>
-        <main>
+{% extends "admin/recipes/layout-adm.njk" %}
 
-            <div class="create-title">
-                <h3>Editando receita</h3>
+{% block head %}
+    <title>Foodfy - Editar receita</title>
+{% endblock %}
 
-                <form id="form-delete" action="/admin/recipes/{{recipe.id}}?_method=DELETE" method="post">
-                    <button type="SUBMIT">Deletar</button>
-                </form>
+{% block content %}
+<main>
 
-                <button form="putForm" type="submit">Salvar receita</button>
+    <div class="create-title">
+        <h3>Editando receita</h3>
 
-            </div>
+        <form id="form-delete" action="/admin/recipes/{{recipe.id}}?_method=DELETE" method="post">
+            <button type="SUBMIT">Deletar</button>
+        </form>
 
-            <form id="putForm" action="/admin/recipes/{{recipe.id}}?_method=PUT" class="card-form" method="POST">
-                
-                {% include 'admin/recipes/fields.njk' %}
+        <button form="putForm" type="submit">Salvar receita</button>
 
-            </form>
-            
-        </main>
+    </div>
 
-        <footer>
-            <p>Todos os direitos reservados, receitas Foodfy.</p>
-        </footer>
-    </body>
-</html>
+    <form id="putForm" action="/admin/recipes/{{recipe.id}}?_method=PUT" class="card-form" method="POST">
+        
+        {% include 'admin/recipes/fields.njk' %}
+
+    </form>
+    
+</main>
+{% endblock %}
