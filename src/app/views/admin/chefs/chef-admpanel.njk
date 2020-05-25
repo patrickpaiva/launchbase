@@ -1,0 +1,38 @@
+{% extends "admin/layout-adm.njk" %}
+
+{% block head %}
+    <title>Foodfy - Detalhes do chef</title>
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="container-admpanel">
+        <div class="link-admpanel">
+            <h2>Chef: {{chef.name}}</h2>
+            <a href="/admin/chefs/{{chef.id}}/edit">Editar chef</a>
+        </div>
+        <div class="chef-infos">
+            <img src="{{chef.avatar_url}}" alt="{{chef.name}}">
+            <p class="chef-name">{{chef.name}}</p>
+            <p class="chef-total_recipes">{{chef.total_recipes}} receitas</p>
+        </div>
+        <div class="chef-recipes-container">
+            <h2>Receitas</h2>
+            <div class="cards-adm">
+                {% for recipe in recipes %}
+                <div class="card-adm">
+                    <img src="{{recipe.image}}" alt="{{recipe.title}}" class="cover">
+                    <div class="cards-panel-texts">
+                        <p class="nome-receita">{{recipe.title}}</p>
+                        <p class="feito-por">por {{chef.name}}</p>
+                        <a href="/admin/recipes/{{recipe.id}}/recipes-admpanel">Visualizar</a>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

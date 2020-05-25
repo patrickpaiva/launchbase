@@ -1,4 +1,4 @@
-{% extends "admin/recipes/layout-adm.njk" %}
+{% extends "admin/layout-adm.njk" %}
 
 {% block head %}
     <title>Foodfy - Editar receita</title>
@@ -12,7 +12,22 @@
 
         <form id="form-delete" action="/admin/recipes/{{recipe.id}}?_method=DELETE" method="post">
             <button type="SUBMIT">Deletar</button>
+            <input type="hidden" name="id" value="{{recipe.id}}">
         </form>
+        
+        <script>
+        
+            const formDelete = document.querySelector("#form-delete")
+
+            formDelete.addEventListener("submit", function (event) {
+                const confirmation = confirm("Deseja realmente deletar?")
+
+                if (!confirmation) {
+                    event.preventDefault()
+                }
+            })
+        
+        </script>
 
         <button form="putForm" type="submit">Salvar receita</button>
 
@@ -21,7 +36,7 @@
     <form id="putForm" action="/admin/recipes/{{recipe.id}}?_method=PUT" class="card-form" method="POST">
         
         {% include 'admin/recipes/fields.njk' %}
-
+        <input type="hidden" name="id" value="{{recipe.id}}">
     </form>
     
 </main>

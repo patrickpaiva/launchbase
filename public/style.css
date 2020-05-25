@@ -22,11 +22,14 @@ header {
     height: 27px;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+
 }
 
 .container .menu,
 .container-admin .menu {
-    padding-left: 120px;
+    padding-left: 92.4px;
 }
 
 .container .menu a {
@@ -37,8 +40,14 @@ header {
     text-decoration: none;
 }
 
+.container .menu a.active {
+    color: #111111;
+    font-weight: bold;
+}
+
 .container .menu a:hover {
-    color: #e9bba6;
+    color: #111111;
+    font-weight: bold;
     transition: 300ms;
 }
 
@@ -47,9 +56,39 @@ header {
 }
 
 .container .logo {
+    width: 90.6px;
+    height: 26.9px;
     padding-left: 0px;
 }
 
+.search {
+    margin-left: 156px;
+    position: absolute;
+    right: 0;
+}
+
+.search input {
+    width: 246px;
+    height: 35px;
+    border: solid 1px #DDDDDD;
+    border-radius: 4px;
+    padding-left: 8px;
+    outline: none;
+    color: #999999;
+    font-size: 14px
+}
+
+.search button {
+    width: 91px;
+    height: 37px;
+    border-radius: 4px;
+    background-color: #6558C3;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 9px 20px;
+    margin-left: 6px;
+}
 .melhores-receitas {
     margin: auto;
     width: 940px;
@@ -346,18 +385,28 @@ footer p {
     margin: auto;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .container-admin .menu a {
     font-family: 'Roboto', sans-serif;
-    color: white;
-    font-size: 16px;
+    font-weight: bold;
+    color: #999999;
+    font-size: 15px;
     line-height: 19px;
     text-decoration: none;
 }
 
+.container-admin .menu a.active {
+    color: #FFFFFF;
+}
+
+.container-admin .menu a:last-child{
+    margin-left: 30px;
+}
+
 .container-admin .menu a:hover {
-    color: #e9bba6;
+    color: #FFFFFF;
     transition: 300ms;
 }
 
@@ -383,7 +432,8 @@ footer p {
     font-size: 24px;
 }
 
-#form-delete button {
+#form-delete button,
+#delete-button {
     width: 92px;
     margin-right: 10px;
     background-color: #DC4747;
@@ -410,7 +460,7 @@ footer p {
     font-weight: bold;
 }
 
-.card-form .item .input-content input {
+.card-form .item .input-content input, select {
     width: 100%;
     height: 50px;
     outline: none;
@@ -560,9 +610,103 @@ footer p {
     text-align: center;
 }
 
+/*CHEFS ADM PANEL*/
 
+.cards-adm-chefs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    grid-row-gap: 30px;
+}
 
+.card-chef {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    align-items: center;
+}
 
+.card-chef img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.card-chef .chef-name {
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.chef-info {
+    margin-left: 20px;
+}
+
+.chef-info p {
+    color: #111111;
+    margin-bottom: 10px;
+}
+
+.chef-info a {
+    text-decoration: none;
+    color: #6558C3;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+}
+
+/* CHEF-ADMPANEL */
+
+.chef-infos {
+    width: 940px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.chef-infos img {
+    max-width: 200px;
+    border-radius: 50%;
+}
+
+.chef-infos .chef-name{
+    font-size: 36px;
+    font-weight: bold;
+    color: #111111;
+    line-height: 42px;
+    margin-top: 30px;
+}
+
+.chef-infos .chef-total_recipes {
+    font-size: 20px;
+    color: #777777;
+    line-height: 24px;
+}
+
+.chef-recipes-container h2 {
+    margin-bottom: 30px;
+}
+
+.chef-info .chef-recipes {
+    font-size: 14px;
+    color: #666666;
+    line-height: 16px;
+}
+
+#chef-link {
+    text-decoration: none;
+}
+
+/* SEARCH PAGE */
+
+.search-header {
+    width: 940px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.search-header h2 {
+    font-size: 24px;
+    color: #111111;
+}
 
 
 

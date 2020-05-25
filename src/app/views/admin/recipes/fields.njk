@@ -23,13 +23,13 @@
 
 <div class="item">
     <div class="input-title">Autor da receita</div>
-    <div class="input-content">
-        <input 
-            type="text" 
-            name="author"
-            value="{{recipe.author}}"
-        >
-    </div>
+        <select name="chef_id" >
+            {% for chef in chefOption %}
+            <option value="{{chef.id}}" {% if recipe.chef_id == chef.id %}selected{%endif%}>
+                {{chef.name}}
+            </option>
+            {% endfor %}
+        </select>
 </div>
 
 <div class="item">
@@ -69,16 +69,16 @@
     <div class="input-title">Modo de preparo</div>
         <div id="steps">
 
-            {% if recipe.directions %}
+            {% if recipe.preparation %}
 
-                {% for direction in recipe.directions %}
+                {% for direction in recipe.preparation %}
                     <div class="step">
                         <input 
                             type="text" 
-                            name="directions[]"
+                            name="preparation[]"
                             value="{{direction}}"
                         >
-                        <a id="id{{recipe.directions.indexOf(direction)}}" onClick="removeDiv(id)"><span class="material-icons">highlight_off</span></a>
+                        <a id="id{{recipe.preparation.indexOf(direction)}}" onClick="removeDiv(id)"><span class="material-icons">highlight_off</span></a>
                     </div>
                 {% endfor %}
 
@@ -86,7 +86,7 @@
                 <div class="step">
                         <input 
                             type="text" 
-                            name="directions[]"
+                            name="preparation[]"
                             value=""
                         >
                         <a id="id0" onClick="removeDiv(id)"><span class="material-icons">highlight_off</span></a>

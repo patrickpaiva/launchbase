@@ -19,12 +19,11 @@
             <h2>Mais acessadas</h2>
                 <div class="cards">
 
-                {% set length = recipes.length if recipes.length < recipes.length +1 %}
-                {% for i in range(0, length) %}
-                    <div class="card" id="{{i}}">
-                        <img src="{{recipes[i].image}}" alt="{{recipes[i].title}}">
-                        <p class="nome-receita">{{recipes[i].title}}</p>
-                        <p class="feito-por">por {{recipes[i].author}}</p>
+                {% for recipe in recipes %}
+                    <div class="card" id="{{recipe.id}}">
+                        <img src="{{recipe.image}}" alt="{{recipe.title}}">
+                        <p class="nome-receita">{{recipe.title}}</p>
+                        <p class="feito-por">por {{recipe.chef_name}}</p>
                     </div>
                 {% endfor %}
                 </div>
