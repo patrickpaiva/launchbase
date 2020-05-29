@@ -20,25 +20,56 @@ module.exports = {
 
         })
     },
-    show(req, res) {
-        Chef.find(req.params.id, function(chef) {
+    async show(req, res) {
+        const chef = await Chef.find(req.params.id)
 
-            Chef.findChefsRecipes(req.params.id, function(recipes){
+        const recipes = await Chef.findChefsRecipes(req.params.id)
 
-                return res.render("chef", { chef, recipes })
-            })
-            
+        async function getImage(recipeId) {
+            let results = await Recipe.files(recipeId)
+
+            const files = results.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
+
+            return files[0]
+        }
+
+        const recipeFilesPromises = recipes.map(async recipe => {
+            recipe.photo = await getImage(recipe.id)
+            return recipe
         })
+
+        const allRecipes = await Promise.all(recipeFilesPromises)
+        
+        return res.render("chef", { chef, recipes: allRecipes })
+        // Chef.find(req.params.id, function(chef) {
+
+        //     Chef.findChefsRecipes(req.params.id, function(recipes){
+
+        //     })
+            
+        // })
     },
-    admchef(req, res) {
-        Chef.find(req.params.id, function(chef) {
+    async admchef(req, res) {
+        const chef = await Chef.find(req.params.id)
 
-            Chef.findChefsRecipes(req.params.id, function(recipes){
+        const recipes = await Chef.findChefsRecipes(req.params.id)
 
-                return res.render("admin/chefs/chef-admpanel", { chef, recipes })
-            })
-            
+        async function getImage(recipeId) {
+            let results = await Recipe.files(recipeId)
+
+            const files = results.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
+
+            return files[0]
+        }
+
+        const recipeFilesPromises = recipes.map(async recipe => {
+            recipe.photo = await getImage(recipe.id)
+            return recipe
         })
+
+        const allRecipes = await Promise.all(recipeFilesPromises)
+        
+        return res.render("admin/chefs/chef-admpanel", { chef, recipes: allRecipes })
     },
     admpanel(req, res) {
         Chef.allChefs(function(chefs){

@@ -6,7 +6,30 @@
 
 {% block content %}
 <div class="recipe-container">
-    <img src="{{recipe.image}}" alt="{{recipe.title}}">
+    <div class="photos-container">
+        <div class="highlight">
+            {% if not files %}
+                <img src="http://placehold.it/500x500?text=PRODUTO SEM FOTO" />
+            {% else %}
+                <img 
+                    src="{{files[0]}}" 
+                    alt="{{recipe.name}}"
+                >
+            {% endif %}
+        </div>
+        <div class="photos-preview">
+            {% for image in files %}
+                <img 
+                    src="{{image}}" 
+                    alt="{{recipe.name}}"
+                    {% if loop.index0 == 0 %}
+                    class="active"
+                    {% endif %}
+                    onclick="ImageGallery.setImage(event)" 
+                >
+            {% endfor %}
+        </div>
+    </div>
     <h1>{{recipe.title}}</h1>
     <p class="recipe-author">por {{recipe.chef_name}}</p>
     <h2>Ingredientes <a class="showi active">MOSTRAR</a> <a class="hidei">ESCONDER</a></h2>

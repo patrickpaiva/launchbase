@@ -8,6 +8,10 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 header {
     margin-top: 30px;
@@ -176,7 +180,7 @@ header {
 
 footer {
     background-color: #eeeeee;
-    margin-top: 50px;
+    margin-top: auto;
     width: 100%;
 }
 
@@ -449,11 +453,13 @@ footer p {
     cursor: pointer;
 }
 
-.card-form .item {
+.card-form .item,
+.card-form .item-photos {
     padding-bottom: 30px;
 }
 
-.card-form .item .input-title {
+.card-form .item .input-title,
+.card-form .item-photos .input-title {
     padding-bottom: 10px;
     font-size: 16px;
     color: #111111;
@@ -708,6 +714,152 @@ footer p {
     color: #111111;
 }
 
+/* PHOTOS - CREATE PAGE */
+.create-photos-container {
+    width: 940px;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-gap: 10px;
+}
+
+.input-photos-container {
+    position: relative;
+}
+
+.input-photos-container #input-photos {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+
+    cursor: pointer;
+}
+
+.add-photos-button {
+    width: 148px;
+    height: 148px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #DDDDDD;
+    border-radius: 3.5px;
+    z-index: 100;
+}
+
+#add-symbol {
+    font-size: 56px;
+    color: #999999;
+}
+
+.preview-photos-container {
+    width: 100%;
+    max-height: 150px;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 7.5px;
+}
 
 
+#photo-preview .photo img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+#photo-preview .photo {
+    position: relative;
+}
+
+#photo-preview .photo i {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: rgba(255,255,255,0.8);
+
+    color: red;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 500%;
+    cursor: pointer;
+
+    transition: opacity 200ms;
+
+    opacity: 0;
+}
+
+#photo-preview .photo:hover i {
+    opacity: 1;
+}
+
+/* SHOW PREVIEW-PHOTOS */
+
+.recipe-container .photos-preview {
+    text-align: right;
+}
+
+.recipe-container .photos-preview img {
+    width: 50px;
+    height: 50px;
+
+    opacity: 0.6;
+    cursor: pointer;
+
+    transition: 200ms;
+}
+
+.recipe-container .photos-preview img:hover,
+.recipe-container .photos-preview img.active {
+    opacity: 1;
+}
+
+/* CHEFS AVATAR INPUT */
+.input-content.avatar_image {
+    position: relative;
+    display: block;
+
+    overflow: hidden;
+
+    width: 140px;
+    height: 36px;
+}
+
+.input-content.avatar_image input {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    opacity: 0;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.input-content.avatar_image p {
+    background-color: #6558C3;
+    box-shadow: 0 2px 2px -6px #333;
+    color: white;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-align: center;
+
+    cursor: pointer;
+
+}
 

@@ -15,7 +15,7 @@
         <div class="cards-adm">
             {% for recipe in recipes %}
                 <div class="card-adm" id="{{recipe}}">
-                    <img src="{{recipe.image}}" alt="{{recipe.title}}" class="cover">
+                    <img src="{{recipe.photo}}" alt="{{recipe.title}}" class="cover">
                     <div class="cards-panel-texts">
                         <p class="nome-receita">{{recipe.title}}</p>
                         <p class="feito-por">por {{recipe.chef_name}}</p>
