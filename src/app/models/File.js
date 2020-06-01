@@ -24,8 +24,6 @@ module.exports = {
         try {
             let result = await db.query(`SELECT * FROM files WHERE id = $1`,[id])
             const file = result.rows[0]
-            // result = await db.query(`SELECT * FROM recipes_files WHERE file_id = $1`, [id])
-            // const recipe_file = result.rows[0]
 
             fs.unlinkSync(file.path)
 

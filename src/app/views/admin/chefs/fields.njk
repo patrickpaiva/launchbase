@@ -11,12 +11,25 @@
 
 <div class="item">
     <div class="input-title">Avatar</div>
-    <div class="input-content avatar_image">
-        <input 
-            id="avatar-input"
-            type="file" 
-            name="avatar_image"
-        >
-        <p>Enviar Avatar</p>
+    <div class="avatar-container">
+        <div class="avatar-preview">
+            <div class="photo-avatar">
+            {% if (avatar) %}
+                <img id="avatar" src="{{avatar}}" class="active">
+            {% else %}
+                <img id="avatar" src="{{avatar}}">
+            {% endif %}
+            </div>
+        </div>
+        <div class="input-content avatar_image">
+            <input 
+                id="avatar-input"
+                type="file"
+                name="avatar_image"
+                onchange="ChefImageUpload.previewChefImage()"
+            >
+            <p>Enviar Avatar</p>
+            <input type="hidden" name="file_id" value="chef.file_id">
+        </div>
     </div>
 </div>

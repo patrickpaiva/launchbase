@@ -9,7 +9,7 @@ module.exports = {
         SELECT recipes.*, chefs.id as chef_id, chefs.name as chef_name
                 FROM recipes
                 LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-                ORDER BY recipes.id DESC
+                ORDER BY created_at DESC
         `
         
         const recipes = await db.query(query)
@@ -33,9 +33,8 @@ module.exports = {
                     title,
                     ingredients,
                     preparation,
-                    information,
-                    created_at
-                ) VALUES ($1, $2, $3, $4, $5, $6)
+                    information
+                ) VALUES ($1, $2, $3, $4, $5)
                 RETURNING id
             `
             const values = [
@@ -44,7 +43,6 @@ module.exports = {
                 data.ingredients,
                 data.preparation,
                 data.information,
-                date(Date.now()).iso
             ]
 
             return db.query(query, values)
@@ -98,17 +96,26 @@ module.exports = {
         const results = await db.query(query, [id]);
         return results.rows[0];
     },
-    findBy(search, callback) {
-        db.query(`
-        SELECT recipes.*, chefs.name AS chef_name
-        FROM recipes
-        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        WHERE recipes.title ILIKE '%${search}%'
-        ORDER BY recipes.id DESC`, function(err, results) {
-            if(err) throw `Database error! ${err}`
+    async findBy(search) {
+        const query = `
+            SELECT recipes.*, chefs.name AS chef_name
+            FROM recipes
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            WHERE recipes.title ILIKE '%${search}%'
+            ORDER BY updated_at DESC
+        `
+        const results = await db.query(query)
+        return results.rows
+        // db.query(`
+        // SELECT recipes.*, chefs.name AS chef_name
+        // FROM recipes
+        // LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+        // WHERE recipes.title ILIKE '%${search}%'
+        // ORDER BY updated_at ASC`, function(err, results) {
+        //     if(err) throw `Database error! ${err}`
 
-            callback(results.rows)
-        })
+        //     callback(results.rows)
+        // })
     },
     async update(data) {
         try{
@@ -146,21 +153,20 @@ module.exports = {
         return results.rows
         
     },
-    delete(id, callback) {
-        db.query(`DELETE FROM recipes WHERE id = $1`, [id], function(err, results) {
-            if(err) throw `Database error! ${err}`
-
-            return callback()
-        })
+    async delete(id) {
+        const query = `
+            DELETE FROM recipes WHERE id = $1
+        `
+        const results = await db.query(query, [id])
+        return results
     },
     async files(id) {
         const query = `
-            SELECT recipes_files.*, files.path FROM recipes_files
+            SELECT recipes_files.*, files.path, files.id FROM recipes_files
             LEFT JOIN files ON (recipes_files.file_id = files.id)
             WHERE recipes_files.recipe_id = $1
-        `;
-
-        const results = await db.query(query, [id]);
-        return results.rows;
+        `
+        const results = await db.query(query, [id])
+        return results.rows
     }
 }

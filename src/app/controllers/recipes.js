@@ -152,7 +152,7 @@ module.exports = {
             const keys = Object.keys(req.body)
 
             for(key of keys) {
-                if (req.body[key] == "") {
+                if (req.body[key] == "" && key != "removed_files") {
                     return res.send('Please, fill all fields')
                 }
             }
@@ -209,12 +209,78 @@ module.exports = {
         return res.render("admin/recipes/edit", { recipe, files, chefOption })
 
     },
-    delete(req, res) {
-        Recipe.delete(req.body.id, function(){
-            return res.redirect('/admin/recipes/adm-panel')
-        })
+    async delete(req, res) {
+        try {
+            let files = await Recipe.files(req.body.id)
+
+            const removingFiles = files.map(file => File.delete(file.file_id))
+        
+            await Promise.all(removingFiles)
+
+            await Recipe.delete(req.body.id)
+    
+            return res.redirect('/admin/recipes')
+        }
+        catch(error) {
+            console.error(error)
+        }
+        
     },
-    search(req, res) {
+    async search(req, res) {
+        try {
+            const { search } = req.query
+
+            if ( search ) {
+                const recipes = await Recipe.findBy(search)
+                async function getImage(recipeId) {
+                    let results = await Recipe.files(recipeId)
+        
+                    const files = results.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
+        
+                    return files[0]
+                }
+        
+                const recipeFilesPromises = recipes.map(async recipe => {
+                    recipe.photo = await getImage(recipe.id)
+                    return recipe
+                })
+        
+                const allRecipes = await Promise.all(recipeFilesPromises)
+    
+                return res.render("search", { recipes: allRecipes, search })
+                // Recipe.findBy(search, function(recipes) {
+                //     return res.render("search", {recipes, search})
+                // })
+
+            } else {
+                const recipes = await Recipe.allRecipes()
+                async function getImage(recipeId) {
+                    let results = await Recipe.files(recipeId)
+        
+                    const files = results.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
+        
+                    return files[0]
+                }
+        
+                const recipeFilesPromises = recipes.map(async recipe => {
+                    recipe.photo = await getImage(recipe.id)
+                    return recipe
+                })
+        
+                const allRecipes = await Promise.all(recipeFilesPromises)
+    
+                return res.render("search", { recipes: allRecipes, search })
+
+                // Recipe.allRecipes(function(recipes){
+                //     return res.render("search", {recipes, search})
+        
+                // })
+            }
+
+        }
+        catch (error) {
+            console.error(error)
+        }
         const { search } = req.query
 
         if ( search ) {

@@ -137,3 +137,20 @@ const ImageGallery = {
         target.classList.add('active')
     }
 }
+
+const ChefImageUpload = {
+    previewChefImage() {
+        const preview = document.querySelector('#avatar')
+        const file = document.querySelector('input[type=file]').files[0]
+        const reader = new FileReader()
+
+        reader.addEventListener("load", function(){
+            preview.src = reader.result
+            preview.classList.add('active')
+        }, false)
+
+        if (file) {
+            reader.readAsDataURL(file)
+        }
+    }
+}

@@ -261,6 +261,7 @@ footer p {
 .sobre {
     width: 940px;
     margin: auto;
+    margin-bottom: 24px;
 }
 
 .sobre h1 {
@@ -345,6 +346,12 @@ footer p {
     line-height: 28px;
     white-space: pre-wrap;
 }
+
+.recipe-container p:last-child {
+    margin-bottom: 24px;
+}
+
+
 
 .showi, .hidei, .showp, .hidep, .showf, .hidef {
     font-size: 12px;
@@ -701,6 +708,9 @@ footer p {
     text-decoration: none;
 }
 
+
+
+
 /* SEARCH PAGE */
 
 .search-header {
@@ -835,6 +845,13 @@ footer p {
 
     width: 140px;
     height: 36px;
+    
+}
+
+.input-content.avatar_image.active {
+    position: absolute;
+    top: -100%;
+    opacity: 0;
 }
 
 .input-content.avatar_image input {
@@ -861,5 +878,61 @@ footer p {
 
     cursor: pointer;
 
+}
+
+.avatar-preview {
+    margin-bottom: 16px;
+}
+
+.avatar-preview img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.photo-avatar {
+    position: relative;
+    width: 150px;
+}
+
+.photo-avatar i {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: rgba(255,255,255,0.8);
+
+    color: red;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 500%;
+    cursor: pointer;
+
+    transition: opacity 200ms;
+
+    opacity: 0;
+}
+
+.photo-avatar i:hover {
+    opacity: 1;
+
+}
+
+#avatar {
+    opacity: 0;
+    position: absolute;
+    top: -100%;
+}
+
+#avatar.active {
+    opacity: 1;
+    position: relative;
 }
 

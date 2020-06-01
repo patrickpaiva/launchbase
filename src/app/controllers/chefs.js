@@ -1,6 +1,8 @@
 const Recipe = require('../models/recipe')
 const Chef = require('../models/chef')
 const { date } = require('../../lib/utils')
+const File = require('../models/File')
+
 
 module.exports = {
     index(req, res) {
@@ -14,14 +16,27 @@ module.exports = {
     about(req, res) {
         return res.render("about")
     },
-    showAll(req, res) {
-        Chef.allChefs(function(chefs){
-            return res.render("chefs", {chefs})
+    async showAll(req, res) {
+        const chefs = await Chef.allChefs()
 
+        function parseUrl(photo) {
+            let avatarUrl =  `${req.protocol}://${req.headers.host}${photo.replace("public", "")}`
+            return avatarUrl
+        }
+
+        const avatarPromises = chefs.map(async chef => {
+            chef.photo = await parseUrl(chef.photo)
+            return chef
         })
+
+        const allChefs = await Promise.all(avatarPromises)
+
+        return res.render("chefs", { chefs: allChefs })
     },
     async show(req, res) {
         const chef = await Chef.find(req.params.id)
+
+        const avatar = `${req.protocol}://${req.headers.host}${chef.photo.replace("public", "")}`
 
         const recipes = await Chef.findChefsRecipes(req.params.id)
 
@@ -40,7 +55,7 @@ module.exports = {
 
         const allRecipes = await Promise.all(recipeFilesPromises)
         
-        return res.render("chef", { chef, recipes: allRecipes })
+        return res.render("chef", { chef, avatar, recipes: allRecipes })
         // Chef.find(req.params.id, function(chef) {
 
         //     Chef.findChefsRecipes(req.params.id, function(recipes){
@@ -52,6 +67,8 @@ module.exports = {
     async admchef(req, res) {
         const chef = await Chef.find(req.params.id)
 
+        const avatar = `${req.protocol}://${req.headers.host}${chef.photo.replace("public", "")}`
+
         const recipes = await Chef.findChefsRecipes(req.params.id)
 
         async function getImage(recipeId) {
@@ -69,18 +86,30 @@ module.exports = {
 
         const allRecipes = await Promise.all(recipeFilesPromises)
         
-        return res.render("admin/chefs/chef-admpanel", { chef, recipes: allRecipes })
+        return res.render("admin/chefs/chef-admpanel", { chef, avatar, recipes: allRecipes })
     },
-    admpanel(req, res) {
-        Chef.allChefs(function(chefs){
-            return res.render("admin/chefs/adm-panel", {chefs})
+    async admpanel(req, res) {
+        const chefs = await Chef.allChefs()
 
+        function parseUrl(photo) {
+            let avatarUrl =  `${req.protocol}://${req.headers.host}${photo.replace("public", "")}`
+            return avatarUrl
+        }
+
+        const avatarPromises = chefs.map(async chef => {
+            chef.photo = await parseUrl(chef.photo)
+            return chef
         })
+
+        const allChefs = await Promise.all(avatarPromises)
+
+        return res.render("admin/chefs/adm-panel", { chefs: allChefs })
+        
     },
     create(req, res) {
         return res.render('admin/chefs/create')
     },
-    post(req, res) {
+    async post(req, res) {
         const keys = Object.keys(req.body)
 
         for(key of keys) {
@@ -88,12 +117,16 @@ module.exports = {
                 return res.send('Please, fill all fields')
             }
         }
-    
-        Chef.create(req.body, function(){
-            return res.redirect(`/admin/chefs`)
-        })
+
+        let results = await File.create(req.files[0])
+
+        const file_id = results.id
+
+        const chef = await Chef.create({...req.body, file_id})
+        
+        return res.redirect(`/admin/chefs/${chef.id}/chefs-admpanel`)
     },
-    put(req, res) {
+    async put(req, res) {
         const keys = Object.keys(req.body)
 
         for(key of keys) {
@@ -101,20 +134,54 @@ module.exports = {
                 return res.send('Please, fill all fields')
             }
         }
+
+        //deletar arquivo antigo
+        await File.delete(req.body.file_id)
+        
+
+        //enviar arquivo novo e retornar novo file_id
+        let results = await File.create(req.files[0])
+
+        const file_id = results.id
 
              
-        Chef.update(req.body, function(){
-            return res.redirect(`/admin/chefs`)
-        })
+        await Chef.update({...req.body, file_id})
+
+        return res.redirect(`/admin/chefs/${req.body.id}/chefs-admpanel`)
     },
-    edit(req, res) {
-        Chef.find(req.params.id, function(chef){
-            return res.render(`admin/chefs/edit`, { chef })
-        })
+    async edit(req, res) {
+        const chef = await Chef.find(req.params.id)
+
+        const avatar = `${req.protocol}://${req.headers.host}${chef.photo.replace("public", "")}`
+
+        return res.render('admin/chefs/edit', { chef, avatar })
     },
-    delete(req, res) {
-        Chef.delete(req.body.id, function(){
+    async delete(req, res) {
+        try {
+            await File.delete(req.body.file_id)
+            await Chef.delete(req.body.id)
             return res.redirect('/admin/chefs')
-        })
+        }
+        catch(error) {
+            console.error(error)
+        }
+    },
+    async createFile(data){
+        const file = await File.create({
+            name: data.file.filename,
+            path: data.file.path,
+        });
+
+        const query = `
+            INSERT INTO recipes_files (
+                recipe_id,
+                file_id
+            ) VALUES (
+                $1,
+                $2
+            )
+        `;
+
+        return db.query(query, [data.recipe_id, file.id]);
     }
 }

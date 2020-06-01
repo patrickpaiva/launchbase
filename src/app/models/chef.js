@@ -2,47 +2,52 @@ const db = require('../../config/db')
 const { date } = require('../../lib/utils')
 
 module.exports = {
-    allChefs(callback) {
-        
-        db.query(` SELECT chefs.*, count(recipes) AS total_recipes
-        FROM chefs
-        LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
-        GROUP BY chefs.id
-        ORDER BY total_recipes DESC`, function(err, results) {
-            if(err) throw `Database error! ${err}`
+    async allChefs(callback) {
+        try {
+            const query = `
+                SELECT chefs.*, count(recipes) AS total_recipes, files.path as photo
+                FROM chefs
+                LEFT JOIN files ON (chefs.file_id = files.id)
+                LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
+                GROUP BY chefs.id, files.path
+                ORDER BY total_recipes DESC
+            `
 
-            callback(results.rows)
-        })
-
+            const results = await db.query(query)
+            return results.rows
+            
+        }
+        catch(error) {
+            console.error(error)
+        }
     },
-    create(data, callback) {
+    async create(data) {
         const query = `
             INSERT INTO chefs (
-                avatar_url,
                 name,
-                created_at
+                created_at,
+                file_id
             ) VALUES ($1, $2, $3)
             RETURNING id
         `
         const values = [
-            data.avatar_url,
             data.name,
-            date(Date.now()).iso
+            date(Date.now()).iso,
+            data.file_id
         ]
 
-        db.query(query, values, function(err, results){
-            if(err) throw `Database error! ${err}`
-            
-            callback(results.rows[0])
-        })
+        const results = await db.query(query, values)
+
+        return results.rows[0]
     },
     async find(id) {
         const query = `
-            SELECT chefs.*, count(recipes) AS total_recipes
+            SELECT chefs.*, count(recipes) AS total_recipes, files.path as photo
             FROM chefs
+            LEFT JOIN files ON (chefs.file_id = files.id)
             LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
             WHERE chefs.id = $1
-            GROUP BY chefs.id
+            GROUP BY chefs.id, files.path
         `
 
         const results = await db.query(query, [id])
@@ -62,31 +67,29 @@ module.exports = {
         return recipes.rows
 
     },
-    update(data, callback) {
-        const query = `
-        UPDATE chefs SET
-            avatar_url=($1),
-            name=($2)
-        WHERE id = $3           
-        `
-        const values = [
-            data.avatar_url,
-            data.name,
-            data.id
-        ]
-
-
-        db.query(query, values, function(err, results){
-            if(err) throw `Database error! ${err}`
-            
-            callback()
-        })
+    async update(data) {
+        try {
+            const query = `
+            UPDATE chefs SET
+                name=($1),
+                file_id=($2)
+            WHERE id = $3           
+            `
+            const values = [
+                data.name,
+                data.file_id,
+                data.id
+            ]
+    
+            await db.query(query, values)
+        }
+        catch(error) {
+            console.error(error)
+        }
+        
     },
-    delete(id, callback) {
-        db.query(`DELETE FROM chefs WHERE id = $1`, [id], function(err, results) {
-            if(err) throw `Database error! ${err}`
+    async delete(id) {
 
-            return callback()
-        })
+        await db.query(`DELETE FROM chefs WHERE id = $1`, [id])
     }
 }
