@@ -113,7 +113,7 @@ module.exports = {
         const keys = Object.keys(req.body)
 
         for(key of keys) {
-            if (req.body[key] == "") {
+            if (req.body[key] == "" && key != "file_id") {
                 return res.send('Please, fill all fields')
             }
         }
@@ -158,8 +158,26 @@ module.exports = {
     },
     async delete(req, res) {
         try {
-            await File.delete(req.body.file_id)
+            //deleta todas as receitas do chef
+            const recipes = await Chef.findChefsRecipes(req.body.id)
+
+            const recipeDeletePromises = recipes.map(async recipe => {
+                // deleta os arquivos de cada receita
+                let files = await Recipe.files(recipe.id)
+
+                const removingFiles = files.map(file => File.delete(file.file_id))
+            
+                await Promise.all(removingFiles)
+
+                // deleta cada receita
+                await Recipe.delete(recipe.id)
+            })
+    
+            await Promise.all(recipeDeletePromises)
+
+            
             await Chef.delete(req.body.id)
+            await File.delete(req.body.file_id)
             return res.redirect('/admin/chefs')
         }
         catch(error) {

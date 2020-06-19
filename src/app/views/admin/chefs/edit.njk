@@ -8,6 +8,8 @@
 <main>
     <form id="form-delete" action="/admin/chefs?_method=DELETE" method="post">
         <input type="hidden" form="form-delete" name="id" value="{{chef.id}}">
+            <input type="hidden" name="file_id" value="{{chef.file_id}}">
+
     </form>
 
     <script>

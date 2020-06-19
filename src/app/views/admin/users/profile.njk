@@ -1,0 +1,53 @@
+{% extends "admin/layout-adm.njk" %}
+
+{% block head %}
+    <title>Foodfy - Perfil do Usuário</title>
+{% endblock %}
+
+{% block content %}
+<main>
+    <form action="/admin/chefs" class="card-form profile" method="POST" enctype="multipart/form-data">
+        <div class="create-title">
+            <h3>Bem-vindo {{user.firstName}}</h3>
+            <span></span>
+            <button type="submit">Salvar</button>
+        </div>
+
+        <div class="profile-items">
+            <div class="item">
+                <div class="input-title">Nome</div>
+                <div class="input-content">
+                    <input 
+                        type="text" 
+                        name="name"
+                        value="{{user.name}}"
+                    >
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="input-title">E-mail</div>
+                <div class="input-content">
+                    <input 
+                        type="text" 
+                        name="email"
+                        value="{{user.email}}"
+                    >
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="input-title">Senha</div>
+                <div class="input-content">
+                    <input 
+                        type="text" 
+                        name="password"
+                    >
+                </div>
+            </div>
+        </div>
+        
+
+    </form>
+</main>
+{% endblock %}
