@@ -1,3 +1,3 @@
 # launchbase-foodfy
 foodfy
-Desafio 05 do Launchbase (Persistindo dados Foodfy) completo.
+Desafio 08 do Launchbase (apresentação e organização das receitas no foodfy) completo.
