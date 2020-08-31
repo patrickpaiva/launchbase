@@ -406,14 +406,36 @@ footer p {
     font-size: 15px;
     line-height: 19px;
     text-decoration: none;
+    margin-left: 30px;
 }
 
 .container-admin .menu a.active {
     color: #FFFFFF;
 }
 
-.container-admin .menu a:last-child{
-    margin-left: 30px;
+.container-admin .menu a:first-child{
+    margin-left: 0;
+}
+
+.container-admin .menu form{
+    position: absolute;
+    right: 50px;
+    top: 30px;
+}
+
+.container-admin .menu form button{
+    background-color: #000000;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 19px;
+    cursor: pointer;
+}
+
+.container-admin .menu form button:hover{
+    color: #999999;
 }
 
 .container-admin .menu a:hover {
@@ -936,63 +958,5 @@ footer p {
     position: relative;
 }
 
-/* LOGIN PAGES */
-.logo-admin,
-.login-title {
-    width: 500px;
-    margin: 0 auto;
-}
-.logo-admin img {
-    display: block;
-    margin: 0 auto;
-}
 
-.card-form.login {
-    width: 500px;
-    margin-top: 100px;
-}
-
-.login-title h3 {
-    text-align: center;
-    margin-bottom: 35px;
-    font-size: 24px;
-    line-height: 29px;
-    color: #111111
-}
-
-.login-footer {
-    display: grid;
-    grid-template-columns: 1fr 135px;
-    align-items: center;
-}
-
-.login-footer button {
-    border-radius: 4px;
-    background: #6558C3;
-    padding: 9px 35px;
-    font-size: 16px;
-    color: #FFF;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.login-footer a {
-    font-size: 16px;
-    line-height: 19px;
-    color: #969696;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.login-footer a:hover {
-    color: #6558C3;
-    
-}
-
-/* PROFILE */
-.profile-items {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 0px 40px;
-}
 

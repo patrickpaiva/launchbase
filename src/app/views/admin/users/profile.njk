@@ -6,7 +6,7 @@
 
 {% block content %}
 <main>
-    <form action="/admin/chefs" class="card-form profile" method="POST" enctype="multipart/form-data">
+    <form action="/users/admin/profile?_method=PUT" class="card-form profile" method="POST">
         <div class="create-title">
             <h3>Bem-vindo {{user.firstName}}</h3>
             <span></span>
@@ -40,14 +40,28 @@
                 <div class="input-title">Senha</div>
                 <div class="input-content">
                     <input 
-                        type="text" 
+                        type="password" 
                         name="password"
                     >
                 </div>
+                
             </div>
+
+            <div class="item">
+                <div class="input-title">Repetir senha (apenas para alteração de senha)</div>
+                <div class="input-content">
+                    <input 
+                        type="password" 
+                        name="password_confirmation"
+                    >
+                </div>
+                
+            </div>
+
+
         </div>
         
-
+    <input type="hidden" name="id" value="{{user.id}}">
     </form>
 </main>
 {% endblock %}

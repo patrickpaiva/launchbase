@@ -1,0 +1,52 @@
+{% extends "admin/layout-adm.njk" %}
+
+{% block head %}
+    <title>Foodfy - Criar usuário</title>
+{% endblock %}
+
+{% block content %}
+<main>
+    <form action="/users/admin/create" class="card-form profile" method="POST">
+        <div class="create-title user">
+            <h3>Criar usuário</h3>
+            <span></span>
+            <button type="submit">Salvar</button>
+            <a href="/users/admin/profile">Cancelar</a>
+        </div>
+
+        <div class="profile-items">
+            <div class="item">
+                <div class="input-title">Nome</div>
+                <div class="input-content">
+                    <input 
+                        type="text" 
+                        name="name"
+                    >
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="input-title">E-mail</div>
+                <div class="input-content">
+                    <input 
+                        type="text" 
+                        name="email"
+                    >
+                </div>
+            </div>
+
+            <div class="item checkbox">
+                
+                    <input 
+                        type="checkbox" 
+                        name="isAdmin"
+                    >
+                    <label for="isAdmin">Administrador</label>
+               
+            </div>
+
+        </div>
+        
+    </form>
+</main>
+{% endblock %}

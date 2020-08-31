@@ -1,0 +1,123 @@
+/* LOGIN PAGES */
+.logo-admin,
+.login-title {
+    width: 500px;
+    margin: 0 auto;
+}
+.logo-admin img {
+    display: block;
+    margin: 0 auto;
+}
+
+.card-form.login {
+    width: 500px;
+    margin-top: 100px;
+}
+
+.login-title h3 {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 24px;
+    line-height: 29px;
+    color: #111111
+}
+
+.login-footer {
+    display: grid;
+    grid-template-columns: 1fr 135px;
+    align-items: center;
+}
+
+.login-footer button {
+    border-radius: 4px;
+    background: #6558C3;
+    padding: 9px 35px;
+    font-size: 16px;
+    color: #FFF;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-footer a {
+    font-size: 16px;
+    line-height: 19px;
+    color: #969696;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    color: #6558C3;
+    
+}
+
+/* PROFILE PAGE */
+.profile-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0px 40px;
+}
+
+/* CREATE FORM */
+.create-title.user {
+    width: 940px;
+    margin: 55px auto;
+    display: grid;
+    grid-template-columns: 1fr 102px 139px 155px;
+    margin-bottom: 20px;
+}
+
+.create-title.user a{
+    background-color: #8A8A8A;
+    padding: 9px 35px;
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 16px;
+    border-radius: 4px;
+
+    text-decoration: none;
+    color: #FFF;
+}
+
+.create-title.user h3 {
+    font-size: 24px;
+}
+
+.item.checkbox {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    color: #111111;
+}
+
+/* MESSAGES */
+@keyframes hidemessage {
+    to {
+        top: -150px;
+        opacity: 0;
+    }
+}
+
+.messages {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 344px;
+    height: 135px;
+    border-radius: 4px;
+    color: white;
+    top: 12px;
+    right: 18px;
+    z-index: 1;
+    opacity: 1;
+
+    animation: hidemessage 400ms 5s ease-out forwards;
+}
+
+.messages.error {
+    background: #DC4747;
+    align-items: center;
+    font-size: 16px;
+    color: #FFF;
+}
