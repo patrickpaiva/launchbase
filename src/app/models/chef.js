@@ -2,7 +2,7 @@ const db = require('../../config/db')
 const { date } = require('../../lib/utils')
 
 module.exports = {
-    async allChefs(callback) {
+    async allChefs() {
         try {
             const query = `
                 SELECT chefs.*, count(recipes) AS total_recipes, files.path as photo

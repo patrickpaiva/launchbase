@@ -1,12 +1,23 @@
 const User = require('../models/User')
-// const { compare } = require('bcryptjs')
+const { compare } = require('bcrypt')
+
+function getFirstName(user) {
+
+    let userName = user.name
+    userName = userName.split(' ')
+    user.firstName = userName[0]
+
+    return user
+}
 
 function checkAllFields(body) {
     //check if has all fields
     const keys = Object.keys(body)
+
+    getFirstName(body)
     
     for(key of keys) {
-        if (body[key] == "") {
+        if (body[key] == "" && key != "password_confirmation") {
             return {
                 user: body,
                 error: "Por favor, preencha todos os campos."
@@ -21,7 +32,7 @@ async function show(req, res, next) {
 
         const user = await User.findOne({ where: {id} })
 
-        if(!user) return res.render("user/register", {
+        if(!user) return res.render("admin/users/profile", {
             error: "Usuário não encontrado!"
         })
 
@@ -40,7 +51,6 @@ async function post(req, res, next) {
         return res.render("admin/users/create-user", fillAllFields)
     }
 
-    //check if user already exists [email, cpf_cnpj]
     let { email } = req.body
 
     const user = await User.findOne({ 
@@ -62,6 +72,8 @@ async function update(req, res, next) {
 
     const { id, password } = req.body
 
+    getFirstName(req.body)
+
     if(!password) return res.render("admin/users/profile", {
         user: req.body,
         error: "Coloque sua senha para atualizar seu cadastro."
@@ -69,12 +81,12 @@ async function update(req, res, next) {
 
     const user = await User.findOne({ where: {id} })
 
-    // const passed = await compare(password, user.password) 
+    const passed = await compare(password, user.password) 
 
-    // if(!passed) return res.render('user/index', { 
-    //     user: req.body,
-    //     error: "Senha incorreta."
-    // })
+    if(!passed) return res.render('admin/users/profile', { 
+        user: req.body,
+        error: "Senha incorreta."
+    })
 
     req.user = user
 

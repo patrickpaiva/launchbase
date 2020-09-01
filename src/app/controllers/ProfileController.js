@@ -11,7 +11,6 @@ function getFirstName(user) {
 }
 
 module.exports = {
-
     async index(req, res) {
         const { user } = req
 

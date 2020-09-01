@@ -121,3 +121,59 @@
     font-size: 16px;
     color: #FFF;
 }
+
+.messages.success {
+    background: #01B12A;
+    align-items: center;
+    font-size: 16px;
+    color: #FFF;
+}
+
+/* LIST USERS PAGE */
+
+.cards-adm-users {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    grid-row-gap: 30px;
+}
+
+.card-user .user-name {
+    color: #111111;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.card-user .user-email {
+    color: #777777;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.user-info {
+    margin-left: 20px;
+}
+
+.user-info p {
+    color: #111111;
+    margin-bottom: 10px;
+}
+
+.user-info a {
+    text-decoration: none;
+    color: #6558C3;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+}
+
+.user-links {
+    display: flex;
+    margin-top: 16px;
+}
+
+.user-links a:last-child {
+    margin-left: 16px;
+    color: #F55A5A;
+}

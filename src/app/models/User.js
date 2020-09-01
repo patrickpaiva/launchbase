@@ -29,6 +29,7 @@ module.exports = {
                 ) VALUES ($1, $2, $3, $4)
                 RETURNING id
             `
+
             const values = [
                 data.name,
                 data.email,
@@ -61,5 +62,17 @@ module.exports = {
 
         await db.query(query)
         return
-    }
+    },
+    async findAll() {
+        try {
+            const query = "SELECT * FROM users"
+
+            const results = await db.query(query)
+            return results.rows
+            
+        }
+        catch(error) {
+            console.error(error)
+        }
+    },
 }
