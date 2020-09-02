@@ -63,6 +63,13 @@ module.exports = {
         await db.query(query)
         return
     },
+    async delete(id) {
+        try {
+            await db.query('DELETE FROM users WHERE id = $1', [id])
+        } catch (err) {
+            console.error(err)
+        }
+    },
     async findAll() {
         try {
             const query = "SELECT * FROM users"
@@ -75,4 +82,16 @@ module.exports = {
             console.error(error)
         }
     },
+    async findUsersRecipes(id) {
+        const query = `
+        SELECT recipes.*, chefs.id as chef_id, chefs.name as chef_name
+                FROM recipes
+                LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+                WHERE user_id = $1
+                ORDER BY recipes.id DESC
+        `
+        
+        const recipes = await db.query(query, [id])
+        return recipes.rows
+    }
 }

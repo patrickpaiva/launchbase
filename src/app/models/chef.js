@@ -67,21 +67,25 @@ module.exports = {
         return recipes.rows
 
     },
-    async update(data) {
+    async update(id, fields) {
         try {
-            const query = `
-            UPDATE chefs SET
-                name=($1),
-                file_id=($2)
-            WHERE id = $3           
-            `
-            const values = [
-                data.name,
-                data.file_id,
-                data.id
-            ]
-    
-            await db.query(query, values)
+            let query = "UPDATE chefs SET"
+
+        Object.keys(fields).map((key, index, array) => {
+            if((index + 1) < array.length) {
+                query = `${query}
+                    ${key} = '${fields[key]}',
+                `
+            } else {
+                query = `${query}
+                    ${key} = '${fields[key]}'
+                    WHERE id = ${id}
+                `
+            }
+        })
+
+        await db.query(query)
+        return
         }
         catch(error) {
             console.error(error)

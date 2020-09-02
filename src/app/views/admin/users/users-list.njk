@@ -7,6 +7,8 @@
 {% block content %}
 
 <main>
+    
+
     <div class="container-admpanel">
         <div class="link-admpanel">
             <h2>Usuários</h2>
@@ -20,7 +22,10 @@
                         <p class="user-email">{{user.email}}</p>
                         <div class="user-links">
                             <a href="/users/admin/edit/{{user.id}}">Editar</a>
-                            <a href="/users/admin/edit/{{user.id}}">Remover</a>
+                            <form class="deleting-form" id="form-delete-{{user.id}}" action="/users/admin/edit/{{user.id}}?_method=DELETE" method="post" >
+                                <button form="form-delete-{{user.id}}" id="remove-button" type="submit">Remover</button>
+                                <input type="hidden" name="id" value="{{user.id}}">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -28,5 +33,21 @@
         </div>
     </div>
 </main>
+
+<script>
+        
+    const deleteLink = document.querySelectorAll(".deleting-form")
+
+    for (var i = 0; i < deleteLink.length; i++) {
+        deleteLink[i].addEventListener('submit', function(event) {
+            const confirmation = confirm("Deseja realmente deletar?")
+
+            if (!confirmation) {
+                event.preventDefault()
+            }
+        });
+    }   
+
+</script>
 
 {% endblock %}

@@ -6,8 +6,8 @@ const multer = require('../app/middlewares/multer')
 
 // recipes admin pages
 routes.get("/create", RecipesController.create)
-routes.get("/:id/recipes-admpanel", RecipesController.admrecipe)
-routes.get("/", RecipesController.admpanel)
+routes.get("/:id/recipes-admpanel", RecipesController.admRecipeShow)
+routes.get("/", RecipesController.admRecipesList)
 routes.post("/", multer.array("photos", 5), RecipesController.post)
 routes.get("/:id/edit", RecipesController.edit)
 routes.put("/:id", multer.array("photos", 5), RecipesController.put)

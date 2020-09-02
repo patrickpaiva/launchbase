@@ -33,6 +33,7 @@ header {
 
 .container .menu,
 .container-admin .menu {
+    display: flex;
     padding-left: 92.4px;
 }
 
@@ -57,6 +58,17 @@ header {
 
 .container a {
     padding-left: 30px;
+}
+
+.container a.my-account {
+    display: flex;
+    align-items: center;
+}
+
+.container a.my-account i {
+    font-size: 18px;
+    color: #6558C3;
+    margin-right: 4px;
 }
 
 .container .logo {
@@ -92,6 +104,7 @@ header {
     font-size: 16px;
     padding: 9px 20px;
     margin-left: 6px;
+    cursor: pointer;
 }
 .melhores-receitas {
     margin: auto;
@@ -432,6 +445,7 @@ footer p {
     font-size: 15px;
     line-height: 19px;
     cursor: pointer;
+    margin-left: 30px;
 }
 
 .container-admin .menu form button:hover{

@@ -24,28 +24,17 @@ module.exports = {
 
             getFirstName(user)
 
-            const { name, email, password, password_confirmation } = req.body
+            const { name, email } = req.body
 
-            if (password_confirmation && password !== password_confirmation) {
-                return res.render('admin/users/profile', {
-                    user: {
-                        ...req.body,
-                        firstName: req.user.firstName,
-                    },
-                    error: 'As senhas digitadas não conferem.'
-                })
-            }
-
-            const passwordHashed = await hash(password, 8)
 
             await User.update(user.id, {
                 name,
                 email,
-                password: passwordHashed,
             })
 
             return res.render('admin/users/profile', {
                  user: req.body,
+                 isAdmin: req.session.isAdmin,
                  success: 'Usuário atualizado com sucesso!'
             })
 
@@ -54,6 +43,7 @@ module.exports = {
             console.error(err)
             return res.render('admin/users/profile', {
                 user: req.body,
+                isAdmin: req.session.isAdmin,
                 error: 'Ocorreu um erro ao atualizar. Tente novamente mais tarde.'
            })
         }

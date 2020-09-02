@@ -4,6 +4,7 @@
         {%block head %}{% endblock %}
         <link rel="stylesheet" href="/style.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -14,6 +15,7 @@
                         <a href="/about">Sobre</a>
                         <a href="/recipes">Receitas</a>
                         <a href="/chefs">Chefs</a>
+                        <a class='my-account' href='/users/login'><i class="material-icons">login</i>Entrar</a>
                     </div>
                     <div class="search">
                             <form action="/search" method="GET">

@@ -18,12 +18,7 @@ async function isAdmin(req, res, next) {
     const user = await User.findOne({ where: {id} })
 
     if (!user.is_admin) {
-        const users = await User.findAll()
-
-        return res.render('admin/users/users-list', {
-            users,
-            error: 'Apenas administradores podem criar usuários'
-        })
+        return res.send('Access Denied')
     }
 
     next()

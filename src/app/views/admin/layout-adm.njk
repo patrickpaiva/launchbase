@@ -17,9 +17,12 @@
                     <a href="/" class="logo"><img src="/img/logoWhite.png" alt="Foodfy"></a>
                     <div class="menu">
                         <a href="/admin/recipes">RECEITAS</a>
-                        <a href="/admin/chefs">CHEFS</a>
-                        <a href="/users/admin/list">USUÁRIOS</a>
+                        {% if (user.is_admin) or (isAdmin) %}
+                            <a href="/admin/chefs">CHEFS</a>
+                            <a href="/users/admin/list">USUÁRIOS</a>
+                        {% endif %}
                         <form action="/users/logout" method="POST">
+                            <a href="/users/admin/profile">MEU PERFIL</a>
                             <button>SAIR</button>
                         </form>
                     </div>

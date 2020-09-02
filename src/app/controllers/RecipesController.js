@@ -1,5 +1,4 @@
 const Recipe = require('../models/recipe')
-const { date } = require('../../lib/utils')
 const File = require('../models/File')
 
 
@@ -65,17 +64,21 @@ module.exports = {
             console.error(error)
         }
     },
-    async admrecipe(req, res) {
+    async admRecipeShow(req, res) {
 
         let recipe = await Recipe.findOne(req.params.id)
 
         if (!recipe) throw new Error('Recipe not found');
 
+        if (!req.session.isAdmin && recipe.user_id !== req.session.userId) {
+            return res.send('Access Denied')
+        }
+
         let files = await Recipe.files(recipe.id);
 
         files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
 
-        return res.render("admin/recipes/recipes-adm", { recipe, files })
+        return res.render("admin/recipes/recipes-adm", { recipe, files, isAdmin: req.session.isAdmin })
 
         // Recipe.find(req.params.id, function(recipe) {
         //     if (!recipe) return res.send("recipe not found!")
@@ -90,9 +93,12 @@ module.exports = {
         //     return res.render("admin/recipes/recipes-adm", { recipe, files })
         // })
     },
-    async admpanel(req, res) {
-
-        const recipes = await Recipe.allRecipes()
+    async admRecipesList(req, res) {
+        let recipes = await Recipe.allRecipes()
+        
+        if (!req.session.isAdmin) {
+            recipes = recipes.filter(recipe => recipe.user_id === req.session.userId)
+        }
 
         async function getImage(recipeId) {
             let results = await Recipe.files(recipeId)
@@ -109,7 +115,7 @@ module.exports = {
 
         const allRecipes = await Promise.all(recipeFilesPromises)
                         
-        return res.render("admin/recipes/adm-panel", {recipes: allRecipes})
+        return res.render("admin/recipes/adm-panel", {recipes: allRecipes, isAdmin: req.session.isAdmin})
 
     },
     async create(req, res) {
@@ -129,10 +135,17 @@ module.exports = {
                 }
             }
 
+            const user_id = req.session.userId
+
+            const recipeValues = {
+                ...req.body,
+                user_id
+            }
+
             if (req.files.length == 0 )
                 return res.send('Please, send at least one image')
             
-            let results = await Recipe.create(req.body)
+            let results = await Recipe.create(recipeValues)
             const recipeId = results.rows[0].id
 
             const recipeFilesPromises = req.files.map((file) =>
@@ -197,6 +210,10 @@ module.exports = {
 
         if (!recipe) throw new Error('Recipe not found');
 
+        if (!req.session.isAdmin && recipe.user_id !== req.session.userId) {
+            return res.send('Access Denied')
+        }
+
         let files = await Recipe.files(recipe.id);
 
         files = files.map(file => ({
@@ -211,6 +228,10 @@ module.exports = {
     },
     async delete(req, res) {
         try {
+            if (!req.session.isAdmin && recipe.user_id !== req.session.userId) {
+                return res.send('Access Denied')
+            }
+
             let files = await Recipe.files(req.body.id)
 
             const removingFiles = files.map(file => File.delete(file.file_id))

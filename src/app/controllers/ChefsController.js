@@ -1,6 +1,5 @@
 const Recipe = require('../models/recipe')
 const Chef = require('../models/chef')
-const { date } = require('../../lib/utils')
 const File = require('../models/File')
 
 
@@ -64,7 +63,7 @@ module.exports = {
             
         // })
     },
-    async admchef(req, res) {
+    async admChefShow(req, res) {
         const chef = await Chef.find(req.params.id)
 
         const avatar = `${req.protocol}://${req.headers.host}${chef.photo.replace("public", "")}`
@@ -85,11 +84,13 @@ module.exports = {
         })
 
         const allRecipes = await Promise.all(recipeFilesPromises)
-        
-        return res.render("admin/chefs/chef-admpanel", { chef, avatar, recipes: allRecipes })
+
+     
+        return res.render("admin/chefs/chef-admpanel", { chef, avatar, recipes: allRecipes, isAdmin: req.session.isAdmin })
     },
-    async admpanel(req, res) {
+    async admChefsList(req, res) {
         const chefs = await Chef.allChefs()
+        
 
         function parseUrl(photo) {
             let avatarUrl =  `${req.protocol}://${req.headers.host}${photo.replace("public", "")}`
@@ -103,11 +104,12 @@ module.exports = {
 
         const allChefs = await Promise.all(avatarPromises)
 
-        return res.render("admin/chefs/adm-panel", { chefs: allChefs })
+        
+        return res.render("admin/chefs/adm-panel", { chefs: allChefs, isAdmin: req.session.isAdmin })
         
     },
     create(req, res) {
-        return res.render('admin/chefs/create')
+        return res.render('admin/chefs/create', { isAdmin: req.session.isAdmin })
     },
     async post(req, res) {
         const keys = Object.keys(req.body)
@@ -127,34 +129,44 @@ module.exports = {
         return res.redirect(`/admin/chefs/${chef.id}/chefs-admpanel`)
     },
     async put(req, res) {
-        const keys = Object.keys(req.body)
+        try {
+            const keys = Object.keys(req.body)
 
-        for(key of keys) {
-            if (req.body[key] == "") {
-                return res.send('Please, fill all fields')
+            for(key of keys) {
+                if (req.body[key] == "") {
+                    return res.send('Please, fill all fields')
+                }
             }
-        }
 
-        //deletar arquivo antigo
-        await File.delete(req.body.file_id)
+            const { id, name } = req.body
+
+            if (req.files.length != 0) {
+                //enviar arquivo novo e retornar novo file_id
+                let results = await File.create(req.files[0])
+                
+                const file_id = results.id
+                
+                await Chef.update(id, {name, file_id})
+                //deletar arquivo antigo
+                await File.delete(req.body.file_id)
         
+                return res.redirect(`/admin/chefs/${req.body.id}/chefs-admpanel`)
+            } 
 
-        //enviar arquivo novo e retornar novo file_id
-        let results = await File.create(req.files[0])
+            await Chef.update(id, {name})
 
-        const file_id = results.id
-
-             
-        await Chef.update({...req.body, file_id})
-
-        return res.redirect(`/admin/chefs/${req.body.id}/chefs-admpanel`)
+            return res.redirect(`/admin/chefs/${req.body.id}/chefs-admpanel`)
+        } catch (err) {
+            console.error(err)
+            return res.send('Internal Error')
+        }
     },
     async edit(req, res) {
         const chef = await Chef.find(req.params.id)
 
         const avatar = `${req.protocol}://${req.headers.host}${chef.photo.replace("public", "")}`
 
-        return res.render('admin/chefs/edit', { chef, avatar })
+        return res.render('admin/chefs/edit', { chef, avatar, isAdmin: req.session.isAdmin })
     },
     async delete(req, res) {
         try {

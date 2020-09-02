@@ -12,6 +12,7 @@
 .card-form.login {
     width: 500px;
     margin-top: 100px;
+    margin-bottom: 60px;
 }
 
 .login-title h3 {
@@ -49,6 +50,22 @@
 .login-footer a:hover {
     color: #6558C3;
     
+}
+
+/* FORGOT PASSWORD PAGE */
+.forgot-footer {
+    width: 100%;
+    text-align: right;
+}
+
+.forgot-footer button {
+    border-radius: 4px;
+    background: #6558C3;
+    padding: 9px 35px;
+    font-size: 16px;
+    color: #FFF;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* PROFILE PAGE */
@@ -170,10 +187,46 @@
 
 .user-links {
     display: flex;
+    width: 100%;
     margin-top: 16px;
+    align-items: center;
 }
 
-.user-links a:last-child {
+.user-links form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.user-links button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 16px;
     margin-left: 16px;
     color: #F55A5A;
+    background: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* UPDATE USER PAGE */
+
+.create-title.update-user {
+    width: 940px;
+    margin: 55px auto;
+    display: grid;
+    grid-template-columns: 1fr 102px 139px 155px;
+    margin-bottom: 20px;
+}
+
+.create-title.update-user button:last-child {
+    margin-left: 16px;
+}
+
+#adm-delete-button {
+    background-color: #DC4747;
+    width: 100%;
+    margin-right: 0;
+
 }

@@ -93,8 +93,19 @@ async function update(req, res, next) {
     next()
 }
 
+async function checkAdminStatus(req, res, next) {
+    const { id } = req.session.userId
+
+    const user = await User.findOne({ where: {id}})
+
+    req.user = user
+
+    next()
+}
+
 module.exports = {
     post,
     show,
-    update
+    update,
+    checkAdminStatus
 }
