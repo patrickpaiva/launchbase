@@ -14,7 +14,7 @@ function getFirstName(user) {
 
 module.exports = {
     async create(req, res) {
-        return res.render('admin/users/create-user')
+        return res.render('admin/users/create-user', { isAdmin: req.session.isAdmin })
     },
     async post(req, res) {
 

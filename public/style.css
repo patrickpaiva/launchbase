@@ -972,5 +972,15 @@ footer p {
     position: relative;
 }
 
+/* FORM ERROR */
+#form-error {
+    border: 1px solid #DC4747;
+}
 
-
+.error-div {
+    background-color: #DC4747;
+    width: 40%;
+    padding: 4px;
+    border-radius: 4px;
+    color: white;
+}

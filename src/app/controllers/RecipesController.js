@@ -22,11 +22,11 @@ module.exports = {
 
         const allRecipes = await Promise.all(recipeFilesPromises)
                         
-        return res.render("index", {recipes: allRecipes})
+        return res.render("index", {recipes: allRecipes, isAdmin: req.session.isAdmin})
 
     },
     about(req, res) {
-        return res.render("about")
+        return res.render("about", { isAdmin: req.session.isAdmin })
     },
     async showAll(req, res) {
         const recipes = await Recipe.allRecipes()
@@ -46,7 +46,7 @@ module.exports = {
 
         const allRecipes = await Promise.all(recipeFilesPromises)
                         
-        return res.render("recipes", {recipes: allRecipes})
+        return res.render("recipes", {recipes: allRecipes, isAdmin: req.session.isAdmin})
     },
     async show(req, res) {
         try {
@@ -58,7 +58,7 @@ module.exports = {
     
             files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
     
-            return res.render("recipe", { recipe, files })
+            return res.render("recipe", { recipe, files, isAdmin: req.session.isAdmin })
         }
         catch (error) {
             console.error(error)
@@ -122,7 +122,7 @@ module.exports = {
         
         let chefOption = await Recipe.chefSelectOptions()
 
-        return res.render("admin/recipes/create", { chefOption })
+        return res.render("admin/recipes/create", { chefOption, isAdmin: req.session.isAdmin })
         
     },
     async post(req, res) {
@@ -223,7 +223,7 @@ module.exports = {
 
         let chefOption = await Recipe.chefSelectOptions()
 
-        return res.render("admin/recipes/edit", { recipe, files, chefOption })
+        return res.render("admin/recipes/edit", { recipe, files, chefOption, isAdmin: req.session.isAdmin })
 
     },
     async delete(req, res) {
@@ -268,7 +268,7 @@ module.exports = {
         
                 const allRecipes = await Promise.all(recipeFilesPromises)
     
-                return res.render("search", { recipes: allRecipes, search })
+                return res.render("search", { recipes: allRecipes, search, isAdmin: req.session.isAdmin })
                 // Recipe.findBy(search, function(recipes) {
                 //     return res.render("search", {recipes, search})
                 // })
@@ -290,12 +290,9 @@ module.exports = {
         
                 const allRecipes = await Promise.all(recipeFilesPromises)
     
-                return res.render("search", { recipes: allRecipes, search })
+                return res.render("search", { recipes: allRecipes, search, isAdmin: req.session.isAdmin })
 
-                // Recipe.allRecipes(function(recipes){
-                //     return res.render("search", {recipes, search})
-        
-                // })
+
             }
 
         }
@@ -307,12 +304,12 @@ module.exports = {
         if ( search ) {
 
             Recipe.findBy(search, function(recipes) {
-                return res.render("search", {recipes, search})
+                return res.render("search", {recipes, search, isAdmin: req.session.isAdmin})
             })
 
         } else {
             Recipe.allRecipes(function(recipes){
-                return res.render("search", {recipes, search})
+                return res.render("search", {recipes, search, isAdmin: req.session.isAdmin})
     
             })
         }

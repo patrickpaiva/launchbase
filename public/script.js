@@ -154,3 +154,53 @@ const ChefImageUpload = {
         }
     }
 }
+
+const Validate = {
+    apply(input, func) {
+        Validate.clearErrors(input)
+
+        let results = Validate[func] (input.value)
+        input.value = results.value
+
+        if (results.error)
+            Validate.displayError(input, results.error)
+
+    },
+    displayError(input, error) {
+        input.setAttribute("id", "form-error")
+        const div = document.createElement('div')
+        div.classList.add('error-div')
+        div.innerHTML = error
+        input.parentNode.appendChild(div)
+        input.focus()
+    },
+    clearErrors(input) {
+        const errorDiv = input.parentNode.querySelector('.error-div')
+        if (errorDiv)
+        errorDiv.remove()
+        input.removeAttribute("id")
+    },
+    isEmail(value) {
+        let error = null
+
+        const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+        if(!value.match(mailFormat))
+            error = "E-mail inválido"
+        return {
+            error,
+            value
+        }
+    },
+    isEmpty(value) {
+        let error = null
+
+        if(!value)
+            error = "Campo obrigatório"
+        return {
+            error,
+            value
+        }
+    }
+
+}

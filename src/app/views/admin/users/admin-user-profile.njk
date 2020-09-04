@@ -26,6 +26,7 @@
                         type="text" 
                         name="name"
                         value="{{user.name}}"
+                        onblur="Validate.apply(this, 'isEmpty')"
                     >
                 </div>
             </div>
@@ -37,6 +38,7 @@
                         type="text" 
                         name="email"
                         value="{{user.email}}"
+                        onblur="Validate.apply(this, 'isEmail')"
                     >
                 </div>
             </div>

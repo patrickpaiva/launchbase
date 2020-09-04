@@ -17,9 +17,10 @@ function checkAllFields(body) {
     getFirstName(body)
     
     for(key of keys) {
-        if (body[key] == "" && key != "password_confirmation") {
+        if (body[key] == "") {
             return {
                 user: body,
+                isAdmin: body.isAdmin,
                 error: "Por favor, preencha todos os campos."
             }
         }
@@ -33,7 +34,9 @@ async function show(req, res, next) {
         const user = await User.findOne({ where: {id} })
 
         if(!user) return res.render("admin/users/profile", {
+            isAdmin: req.session.isAdmin,
             error: "Usuário não encontrado!"
+            
         })
 
         req.user = user
@@ -46,7 +49,11 @@ async function show(req, res, next) {
 }
 async function post(req, res, next) {
     //check if has all fields
-    const fillAllFields = checkAllFields(req.body)
+    body = {
+        ...req.body,
+        isAdmin: req.session.isAdmin
+    }
+    const fillAllFields = checkAllFields(body)
     if(fillAllFields) {
         return res.render("admin/users/create-user", fillAllFields)
     }
@@ -59,13 +66,18 @@ async function post(req, res, next) {
 
     if (user) return res.render('admin/users/create-user', {
         user: req.body,
+        isAdmin: req.session.isAdmin,
         error: "Usuário já cadastrado."
     })
     
     next()
 }
 async function update(req, res, next) {
-    const fillAllFields = checkAllFields(req.body)
+    body = {
+        ...req.body,
+        isAdmin: req.session.isAdmin
+    }
+    const fillAllFields = checkAllFields(body)
     if(fillAllFields) {
         return res.render("admin/users/profile", fillAllFields)
     }
@@ -76,6 +88,7 @@ async function update(req, res, next) {
 
     if(!password) return res.render("admin/users/profile", {
         user: req.body,
+        isAdmin: req.session.isAdmin,
         error: "Coloque sua senha para atualizar seu cadastro."
     })
 
@@ -85,6 +98,7 @@ async function update(req, res, next) {
 
     if(!passed) return res.render('admin/users/profile', { 
         user: req.body,
+        isAdmin: req.session.isAdmin,
         error: "Senha incorreta."
     })
 

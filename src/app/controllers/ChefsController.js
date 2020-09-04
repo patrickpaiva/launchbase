@@ -7,13 +7,13 @@ module.exports = {
     index(req, res) {
 
         Chef.allChefs(function(chefs){
-            return res.render("index", {chefs})
+            return res.render("index", {chefs, isAdmin: req.session.isAdmin})
 
         })
 
     },
     about(req, res) {
-        return res.render("about")
+        return res.render("about", { isAdmin: req.session.isAdmin })
     },
     async showAll(req, res) {
         const chefs = await Chef.allChefs()
@@ -30,7 +30,7 @@ module.exports = {
 
         const allChefs = await Promise.all(avatarPromises)
 
-        return res.render("chefs", { chefs: allChefs })
+        return res.render("chefs", { chefs: allChefs, isAdmin: req.session.isAdmin })
     },
     async show(req, res) {
         const chef = await Chef.find(req.params.id)
@@ -54,7 +54,7 @@ module.exports = {
 
         const allRecipes = await Promise.all(recipeFilesPromises)
         
-        return res.render("chef", { chef, avatar, recipes: allRecipes })
+        return res.render("chef", { chef, avatar, recipes: allRecipes, isAdmin: req.session.isAdmin })
         // Chef.find(req.params.id, function(chef) {
 
         //     Chef.findChefsRecipes(req.params.id, function(recipes){
