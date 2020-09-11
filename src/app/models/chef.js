@@ -1,8 +1,14 @@
 const db = require('../../config/db')
-const { date } = require('../../lib/utils')
+
+const Base = require('./Base')
+
+Base.init({
+  table: 'chefs'
+})
 
 module.exports = {
-    async allChefs() {
+    ...Base,
+    async findAll() {
         try {
             const query = `
                 SELECT chefs.*, count(recipes) AS total_recipes, files.path as photo
@@ -19,28 +25,10 @@ module.exports = {
         }
         catch(error) {
             console.error(error)
+            return res.redirect('/error')
         }
     },
-    async create(data) {
-        const query = `
-            INSERT INTO chefs (
-                name,
-                created_at,
-                file_id
-            ) VALUES ($1, $2, $3)
-            RETURNING id
-        `
-        const values = [
-            data.name,
-            date(Date.now()).iso,
-            data.file_id
-        ]
-
-        const results = await db.query(query, values)
-
-        return results.rows[0]
-    },
-    async find(id) {
+    async findOne(id) {
         const query = `
             SELECT chefs.*, count(recipes) AS total_recipes, files.path as photo
             FROM chefs
@@ -66,34 +54,5 @@ module.exports = {
         const recipes = await db.query(query, [id])
         return recipes.rows
 
-    },
-    async update(id, fields) {
-        try {
-            let query = "UPDATE chefs SET"
-
-        Object.keys(fields).map((key, index, array) => {
-            if((index + 1) < array.length) {
-                query = `${query}
-                    ${key} = '${fields[key]}',
-                `
-            } else {
-                query = `${query}
-                    ${key} = '${fields[key]}'
-                    WHERE id = ${id}
-                `
-            }
-        })
-
-        await db.query(query)
-        return
-        }
-        catch(error) {
-            console.error(error)
-        }
-        
-    },
-    async delete(id) {
-
-        await db.query(`DELETE FROM chefs WHERE id = $1`, [id])
     }
 }

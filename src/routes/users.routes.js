@@ -30,8 +30,8 @@ routes.put('/admin/profile', onlyUsers, UserValidator.update, ProfileController.
 routes.get('/admin/list', onlyUsers, isAdmin, UserController.list) //Mostrar a lista de usuários cadastrados
 routes.get('/admin/create', onlyUsers, isAdmin, UserController.create)// Página para criar um novo usuário
 routes.post('/admin/create', onlyUsers, isAdmin, UserValidator.post, UserController.post) //Cadastrar um usuário
-routes.get('/admin/edit/:id', onlyUsers, isAdmin, UserController.show) // Editar um usuário
-routes.put('/admin/edit/:id', onlyUsers, isAdmin, UserController.update) // Editar um usuário
+routes.get('/admin/edit/:id', onlyUsers, isAdmin,UserValidator.edit, UserController.show) // Editar um usuário
+routes.put('/admin/edit/:id', onlyUsers, isAdmin, UserController.put) // Editar um usuário
 routes.delete('/admin/edit/:id', onlyUsers, isAdmin, UserController.delete) // Deletar um usuário
 
 module.exports = routes

@@ -14,6 +14,16 @@ for (item of menuItems2) {
     }
 }
 
+const cards = document.querySelectorAll('.card');
+
+for (let card of cards) {
+    card.addEventListener("click", function(){
+        const recipeId = card.getAttribute('id');
+
+        window.location.href = "recipes/" + recipeId.toString()
+    })
+}
+
 const PhotosUpload = {
     input: "",
     preview: document.querySelector('#photo-preview'),
@@ -204,3 +214,51 @@ const Validate = {
     }
 
 }
+
+const addRemoveFields = {
+    input: "",
+    parent: "",
+    container: "",
+
+    add(event) {
+        this.input = event.target
+        this.parent = this.input.parentElement
+        this.container = this.parent.querySelector('.input-field').lastElementChild
+        
+        const newField = this.container.cloneNode(true);
+        
+        if (newField.children[0].value == "") return false;
+        
+        newField.children[0].value = "";
+
+        this.parent.querySelector('.input-field').appendChild(newField);
+    },
+    remove(event) {
+        this.input = event.target
+        this.parent = this.input.parentElement.parentElement
+
+        if (this.parent.parentElement.children.length == 1) {
+            return false
+        } else {
+            this.parent.parentElement.removeChild(this.parent)
+        }
+    }
+}
+
+const hideAndShow = {
+    input: "",
+    toggleButton(event) {
+        this.input = event.target
+
+        if (this.input.innerHTML == 'ESCONDER') {
+            const parent = this.input.parentElement.parentElement.querySelector('.toggle-list')
+            parent.classList.add('hide')
+            this.input.innerHTML = 'MOSTRAR'
+        } else {
+            const parent = this.input.parentElement.parentElement.querySelector('.toggle-list')
+            parent.classList.remove('hide')
+            this.input.innerHTML = 'ESCONDER'
+        }
+    }
+}
+

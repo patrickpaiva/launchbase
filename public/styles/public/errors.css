@@ -1,0 +1,37 @@
+/* FORM ERROR */
+#form-error {
+    border: 1px solid #DC4747;
+}
+
+.error-div {
+    background-color: #DC4747;
+    width: 40%;
+    padding: 4px;
+    border-radius: 4px;
+    color: white;
+}
+
+/* Not-found Page */
+.not-found {
+    width: 940px;
+    margin: auto;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.not-found img {
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 2px -4px #333;
+}
+
+.not-found h2 {
+    color: #DC4747;
+    font-size: 24px;
+    margin-top: 18px;
+}
+
+.not-found p {
+    font-size: 16px;
+    margin-top: 8px;
+}

@@ -5,7 +5,7 @@ const { hash } = require('bcrypt')
 
 module.exports = {
     loginForm(req, res) {
-        return res.render("session/login")
+        return res.render("admin/session/login")
     },
     login(req, res) {
         req.session.userId = req.user.id
@@ -18,7 +18,7 @@ module.exports = {
         return res.redirect('/')
     },
     forgotForm(req, res) {
-        return res.render("session/forgot-password")
+        return res.render("admin/session/forgot-password")
     },
     async forgot(req,res ) {
         try {
@@ -51,14 +51,14 @@ module.exports = {
             })
 
             // avisar o usuário que envamos o email
-            return res.render("session/forgot-password", {
+            return res.render("admin/session/forgot-password", {
                 success: "Verifique seu email para resetar sua senha!"
             })
 
         }
         catch (err) {
             console.error(err)
-            return res.render("session/forgot-password", {
+            return res.render("admin/session/forgot-password", {
                 error: "Erro inesperado, tente novamente."
             }) 
         }
@@ -67,7 +67,7 @@ module.exports = {
 
     },
     resetForm(req, res) {
-        return res.render("session/password-reset", { token: req.query.token })
+        return res.render("admin/session/password-reset", { token: req.query.token })
     },
     async reset(req, res) {
         const user = req.user
@@ -83,14 +83,14 @@ module.exports = {
                 reset_token_expires: "",
             })
             // avisa o usuario que ele tem uma nova senha
-            return res.render("session/login", {
+            return res.render("admin/session/login", {
                 user: req.body,
                 success: "Senha atualizada! Faça o seu login."
             })
         }
         catch (err) {
             console.error(err)
-            return res.render("session/password-reset", {
+            return res.render("admin/session/password-reset", {
                 user: req.body,
                 token,
                 error: "Erro inesperado, tente novamente."

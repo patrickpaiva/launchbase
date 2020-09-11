@@ -17,39 +17,41 @@ module.exports = {
         return res.render('admin/users/create-user', { isAdmin: req.session.isAdmin })
     },
     async post(req, res) {
-
-        const password = crypto.randomBytes(8).toString('hex')
-
-        const passwordHashed = await hash(password, 8);
-
-        const { name, email, isAdmin } = req.body
-
-        const newUser = {
-            ...req.body,
-            passwordHashed,
-            isAdmin,
+        try {
+            const password = crypto.randomBytes(8).toString('hex')
+    
+            const passwordHashed = await hash(password, 8);
+    
+            const { name, email, isAdmin } = req.body
+    
+            const newUser = {
+                name,
+                email,
+                password: passwordHashed,
+                is_admin: isAdmin || false,
+            }
+    
+            await User.create(newUser)
+    
+            await mailer.sendMail({
+                to: email,
+                from: 'no-reply@foodfy.com',
+                subject: 'Senha Foodfy',
+                html: `<h2>Novo Cadastro Foodfy</h2>
+                <p>${name}, bem-vindo ao Foodfy. Abaixo segue sua para acesso.</p>
+                <p>Senha: ${password}</p>
+                `,
+            })
+    
+            return res.redirect('/users/admin/profile')
+        } catch (error) {
+            console.error(error)
+            return res.redirect('/error')
         }
-
-        await User.createUser(newUser)
-
-        await mailer.sendMail({
-            to: email,
-            from: 'no-reply@foodfy.com',
-            subject: 'Senha Foodfy',
-            html: `<h2>Novo Cadastro Foodfy</h2>
-            <p>${name}, bem-vindo ao Foodfy. Abaixo segue sua para acesso.</p>
-            <p>Senha: ${password}</p>
-            `,
-        })
-
-        return res.redirect('/users/admin/profile')
-        
     },
-    async update(req, res) {
+    async put(req, res) {
         try {
             const { id, name, email, isAdmin } = req.body
-
-           
 
             await User.update(id, {
                 name,
@@ -102,11 +104,16 @@ module.exports = {
         return res.render('admin/users/users-list', { users, isAdmin: req.session.isAdmin })
     },
     async show(req, res) {
-        const { id } = req.params
-        const user = await User.findOne({ where: {id} })
-
-        getFirstName(user)
-
-        return res.render('admin/users/admin-user-profile', { user })
+        try {
+            const { id } = req.params
+            const user = await User.findOne({ where: {id} })
+    
+            getFirstName(user)
+    
+            return res.render('admin/users/admin-user-profile', { user, isAdmin: req.session.isAdmin })
+        } catch (error) {
+            console.error(error)
+            return res.redirect('/error')
+        }
     }
 }

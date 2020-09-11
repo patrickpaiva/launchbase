@@ -92,3 +92,17 @@ ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFE
 -- token password recovery
 ALTER TABLE "chefs" ADD COLUMN reset_token text;
 ALTER TABLE "chefs" ADD COLUMN reset_token_expires text;
+
+-- to run seeds
+DELETE FROM recipes;
+DELETE FROM chefs;
+DELETE FROM files;
+DELETE FROM users;
+DELETE FROM recipes_files;
+
+--restart sequence auto_increment from tables ids
+ALTER SEQUENCE recipes_id_seq RESTART WITH 1;
+ALTER SEQUENCE files_id_seq RESTART WITH 1;
+ALTER SEQUENCE chefs_id_seq RESTART WITH 1;
+ALTER SEQUENCE users_id_seq RESTART WITH 1;
+ALTER SEQUENCE recipes_files_id_seq RESTART WITH 1;

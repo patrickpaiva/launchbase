@@ -1,0 +1,279 @@
+/* ADMIN */
+/* CREATE */
+.container-admin {
+    width: 100%;
+    background-color: black;
+    padding: 27px 0px;
+}
+
+.container-admin .row {
+    width: 940px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.container-admin .menu a {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #999999;
+    font-size: 15px;
+    line-height: 19px;
+    text-decoration: none;
+    margin-left: 30px;
+}
+
+.container-admin .menu a.active {
+    color: #FFFFFF;
+}
+
+.container-admin .menu a:first-child{
+    margin-left: 0;
+}
+
+.container-admin .menu form{
+    position: absolute;
+    right: 50px;
+    top: 30px;
+}
+
+.container-admin .menu form button{
+    background-color: #000000;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 19px;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+.container-admin .menu form button:hover{
+    color: #999999;
+}
+
+.container-admin .menu a:hover {
+    color: #FFFFFF;
+    transition: 300ms;
+}
+
+#header-admin {
+    margin-top: 0;
+}
+
+/* CREATE FORM */
+.card-form {
+    width: 940px;
+    margin: auto;
+}
+
+.create-title {
+    width: 940px;
+    margin: 55px auto;
+    display: grid;
+    grid-template-columns: 1fr 102px 139px;
+    margin-bottom: 20px;
+}
+
+.create-title h3 {
+    font-size: 24px;
+}
+
+#form-delete button,
+#delete-button {
+    width: 92px;
+    margin-right: 10px;
+    background-color: #DC4747;
+}
+
+.create-title button {
+    font-family: 'Roboto', sans-serif;
+    background-color: #6558C3;
+    color: white;
+    font-size: 16px;
+    padding: 9px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.card-form .item,
+.card-form .item-photos {
+    padding-bottom: 30px;
+}
+
+.card-form .item .input-title,
+.card-form .item-photos .input-title {
+    padding-bottom: 10px;
+    font-size: 16px;
+    color: #111111;
+    font-weight: bold;
+}
+
+.card-form .item .input-content input, select {
+    width: 100%;
+    height: 50px;
+    outline: none;
+    color: #555;
+    font-size: 18px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    height: 50px;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+.add-ingredient,
+.add-step {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #6558C3;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#ingredients,
+#steps {
+    padding-bottom: 10px;
+    /* font-size: 16px;
+    color: #111111;
+    font-weight: bold; */
+}
+
+.ingredient input,
+.step input {
+    width: 97%;
+    height: 50px;
+    outline: none;
+    color: #555;
+    font-size: 18px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    height: 50px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.step div,
+.ingredient div {
+    margin-top: 10px;
+}
+
+#ingredients .ingredient:first-child input,
+#steps .step:first-child input {
+    margin-top: 0;
+}
+
+/* recipe-adm */
+.edit-panel {
+    width: 940px;
+    margin: auto;
+    margin-bottom: 24px;
+    padding-top: 25px;
+    display: grid;
+    grid-template-columns: 1fr 136px;
+}
+
+.edit-panel a {
+    font-family: 'Roboto', sans-serif;
+    background-color: #6558C3;
+    color: white;
+    font-size: 16px;
+    padding: 9px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* PHOTOS - CREATE PAGE */
+.create-photos-container {
+    width: 940px;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-gap: 10px;
+}
+
+.input-photos-container {
+    position: relative;
+}
+
+.input-photos-container #input-photos {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+
+    cursor: pointer;
+}
+
+.add-photos-button {
+    width: 148px;
+    height: 148px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #DDDDDD;
+    border-radius: 3.5px;
+    z-index: 100;
+}
+
+#add-symbol {
+    font-size: 56px;
+    color: #999999;
+}
+
+.preview-photos-container {
+    width: 100%;
+    max-height: 150px;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 7.5px;
+}
+
+
+#photo-preview .photo img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+#photo-preview .photo {
+    position: relative;
+}
+
+#photo-preview .photo i {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: rgba(255,255,255,0.8);
+
+    color: red;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 500%;
+    cursor: pointer;
+
+    transition: opacity 200ms;
+
+    opacity: 0;
+}
+
+#photo-preview .photo:hover i {
+    opacity: 1;
+}

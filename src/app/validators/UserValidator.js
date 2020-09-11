@@ -32,7 +32,6 @@ async function show(req, res, next) {
         const { userId: id } = req.session
 
         const user = await User.findOne({ where: {id} })
-
         if(!user) return res.render("admin/users/profile", {
             isAdmin: req.session.isAdmin,
             error: "Usuário não encontrado!"
@@ -43,6 +42,17 @@ async function show(req, res, next) {
     } else {
         return res.redirect('/users/login')
     }
+
+    next()
+        
+}
+async function edit(req, res, next) {
+    
+    const { id } = req.params
+
+    const user = await User.findOne({ where: {id} })
+
+    if(!user) return res.redirect("/not-found")
 
     next()
         
@@ -77,40 +87,30 @@ async function update(req, res, next) {
         ...req.body,
         isAdmin: req.session.isAdmin
     }
-    const fillAllFields = checkAllFields(body)
-    if(fillAllFields) {
-        return res.render("admin/users/profile", fillAllFields)
-    }
-
     const { id, password } = req.body
-
+    
     getFirstName(req.body)
-
+    
     if(!password) return res.render("admin/users/profile", {
         user: req.body,
         isAdmin: req.session.isAdmin,
         error: "Coloque sua senha para atualizar seu cadastro."
     })
-
+    
     const user = await User.findOne({ where: {id} })
-
+    
     const passed = await compare(password, user.password) 
-
+    
     if(!passed) return res.render('admin/users/profile', { 
         user: req.body,
         isAdmin: req.session.isAdmin,
         error: "Senha incorreta."
     })
-
-    req.user = user
-
-    next()
-}
-
-async function checkAdminStatus(req, res, next) {
-    const { id } = req.session.userId
-
-    const user = await User.findOne({ where: {id}})
+    
+    const fillAllFields = checkAllFields(body)
+    if(fillAllFields) {
+        return res.render("admin/users/profile", fillAllFields)
+    }
 
     req.user = user
 
@@ -121,5 +121,5 @@ module.exports = {
     post,
     show,
     update,
-    checkAdminStatus
+    edit
 }

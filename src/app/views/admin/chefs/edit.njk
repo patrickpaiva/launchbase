@@ -13,18 +13,16 @@
     </form>
 
     <script>
-        
-            const formDelete = document.querySelector("#form-delete")
+        const formDelete = document.querySelector("#form-delete")
 
-            formDelete.addEventListener("submit", function (event) {
-                const confirmation = confirm("Deseja realmente deletar?")
+        formDelete.addEventListener("submit", function (event) {
+            const confirmation = confirm("Deseja realmente deletar?")
 
-                if (!confirmation) {
-                    event.preventDefault()
-                }
-            })
-        
-        </script>
+            if (!confirmation) {
+                event.preventDefault()
+            }
+        })
+    </script>
 
     <form action="/admin/chefs?_method=PUT" class="card-form" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="{{chef.id}}">
@@ -36,7 +34,7 @@
             <button type="submit">Salvar cadastro</button>
         </div>
 
-        {% include 'admin/chefs/fields.njk' %}
+        {% include 'admin/parts/chef-fields.njk' %}
 
     </form>
 </main>

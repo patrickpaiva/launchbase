@@ -1,0 +1,162 @@
+/*CHEFS LIST*/
+
+.cards-adm-chefs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    grid-row-gap: 30px;
+}
+
+.card-chef {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    align-items: center;
+}
+
+.card-chef img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card-chef .chef-name {
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.chef-info {
+    margin-left: 20px;
+}
+
+.chef-info p {
+    color: #111111;
+    margin-bottom: 10px;
+}
+
+.chef-info a {
+    text-decoration: none;
+    color: #6558C3;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+}
+
+/* CHEF-SHOW */
+
+.chef-infos {
+    width: 940px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.chef-infos img {
+    max-width: 200px;
+    border-radius: 50%;
+}
+
+.chef-infos .chef-name{
+    font-size: 36px;
+    font-weight: bold;
+    color: #111111;
+    line-height: 42px;
+    margin-top: 30px;
+}
+
+.chef-infos .chef-total_recipes {
+    font-size: 20px;
+    color: #777777;
+    line-height: 24px;
+}
+
+.chef-recipes-container h2 {
+    margin-bottom: 30px;
+}
+
+.chef-info .chef-recipes {
+    font-size: 14px;
+    color: #666666;
+    line-height: 16px;
+}
+
+#chef-link {
+    text-decoration: none;
+}
+
+/* CHEF SHOW RECIPES CONTAINER */
+.container-admpanel {
+    width: 940px;
+    margin: auto;
+}
+
+.cards-adm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 0px
+}
+.card-adm img {
+    width: 172px;
+    height: 80px;
+    border-radius: 8.57px;
+    object-fit: cover;
+    float: left;
+    
+}
+
+.cards-adm .cards-panel-texts {
+    width: 250px;
+    float: left;
+}
+.card-adm .cards-panel-texts .nome-receita {
+    width: 250px;
+    font-size: 18px;
+    line-height: 21px;
+    color: #111111;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.card-adm .cards-panel-texts .feito-por {
+    padding-top: 5px;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #777777;
+    margin-bottom: 10px;
+}
+
+.card-adm .cards-panel-texts a {
+    text-decoration: none;
+    color: #6558C3;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+.link-admpanel {
+    width: 940px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 136px;
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+.container-admpanel .link-admpanel h2 {
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.container-admpanel .link-admpanel a {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    background-color: #6558C3;
+    color: white;
+    font-size: 16px;
+    padding: 9px;
+    border-radius: 4px;
+    text-align: center;
+}

@@ -1,0 +1,12 @@
+/* SEARCH PAGE */
+
+.search-header {
+    width: 940px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.search-header h2 {
+    font-size: 24px;
+    color: #111111;
+}

@@ -1,0 +1,99 @@
+/* CHEFS AVATAR INPUT */
+.input-content.avatar_image {
+    position: relative;
+    display: block;
+
+    overflow: hidden;
+
+    width: 140px;
+    height: 36px;
+    
+}
+
+.input-content.avatar_image.active {
+    position: absolute;
+    top: -100%;
+    opacity: 0;
+}
+
+.input-content.avatar_image input {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    opacity: 0;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.input-content.avatar_image p {
+    background-color: #6558C3;
+    box-shadow: 0 2px 2px -6px #333;
+    color: white;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-align: center;
+
+    cursor: pointer;
+
+}
+
+.avatar-preview {
+    margin-bottom: 16px;
+}
+
+.avatar-preview img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.photo-avatar {
+    position: relative;
+    width: 150px;
+}
+
+.photo-avatar i {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: rgba(255,255,255,0.8);
+
+    color: red;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 500%;
+    cursor: pointer;
+
+    transition: opacity 200ms;
+
+    opacity: 0;
+}
+
+.photo-avatar i:hover {
+    opacity: 1;
+
+}
+
+#avatar {
+    opacity: 0;
+    position: absolute;
+    top: -100%;
+}
+
+#avatar.active {
+    opacity: 1;
+    position: relative;
+}

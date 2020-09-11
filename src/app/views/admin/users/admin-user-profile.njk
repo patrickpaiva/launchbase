@@ -60,5 +60,18 @@
         
     <input type="hidden" name="id" value="{{user.id}}">
     </form>
+
+    <script>
+        const formDelete = document.querySelector("#form-delete")
+
+        formDelete.addEventListener("submit", function (event) {
+            const confirmation = confirm("Deseja realmente deletar?")
+
+            if (!confirmation) {
+                event.preventDefault()
+            }
+        })
+    </script>
+    
 </main>
 {% endblock %}

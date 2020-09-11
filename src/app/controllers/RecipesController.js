@@ -1,122 +1,75 @@
-const Recipe = require('../models/recipe')
+const Recipe = require('../models/Recipe')
 const File = require('../models/File')
+const LoadRecipesService = require('../services/LoadRecipesService')
+const fs = require('fs')
 
 
 module.exports = {
-    async index(req, res) {
-        
-        const recipes = await Recipe.allRecipes()
-
-        async function getImage(recipeId) {
-            let results = await Recipe.files(recipeId)
-
-            const files = results.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
-
-            return files[0]
-        }
-
-        const recipeFilesPromises = recipes.map(async recipe => {
-            recipe.photo = await getImage(recipe.id)
-            return recipe
-        })
-
-        const allRecipes = await Promise.all(recipeFilesPromises)
-                        
-        return res.render("index", {recipes: allRecipes, isAdmin: req.session.isAdmin})
-
-    },
-    about(req, res) {
-        return res.render("about", { isAdmin: req.session.isAdmin })
-    },
     async showAll(req, res) {
-        const recipes = await Recipe.allRecipes()
+        try {
+            const recipes = await LoadRecipesService.load('recipes')
 
-        async function getImage(recipeId) {
-            let results = await Recipe.files(recipeId)
-
-            const files = results.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
-
-            return files[0]
+            return res.render("public/recipes", {recipes, session: req.session})
+        } catch (error) {
+            console.error(error)
+            return res.redirect('/error')
         }
-
-        const recipeFilesPromises = recipes.map(async recipe => {
-            recipe.photo = await getImage(recipe.id)
-            return recipe
-        })
-
-        const allRecipes = await Promise.all(recipeFilesPromises)
-                        
-        return res.render("recipes", {recipes: allRecipes, isAdmin: req.session.isAdmin})
     },
     async show(req, res) {
         try {
-            let recipe = await Recipe.findOne(req.params.id)
+            let recipe = await Recipe.findOneRecipe(req.params.id)
 
-            if (!recipe) throw new Error('Recipe not found');
+            if (!recipe) {
+                return res.redirect('/not-found')
+            }
     
             let files = await Recipe.files(recipe.id);
     
-            files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
+            files = files.map(file => `${file.path}`)
     
-            return res.render("recipe", { recipe, files, isAdmin: req.session.isAdmin })
+            return res.render("public/recipe", { recipe, files, isAdmin: req.session.isAdmin })
         }
         catch (error) {
             console.error(error)
+            return res.redirect('/error')
         }
     },
     async admRecipeShow(req, res) {
-
-        let recipe = await Recipe.findOne(req.params.id)
-
-        if (!recipe) throw new Error('Recipe not found');
-
-        if (!req.session.isAdmin && recipe.user_id !== req.session.userId) {
-            return res.send('Access Denied')
+        try {
+            let recipe = await Recipe.findOneRecipe(req.params.id)
+    
+            if (!recipe) {
+                return res.redirect('/not-found')
+            }
+    
+            if (!req.session.isAdmin && recipe.user_id !== req.session.userId) {
+                return res.send('Access Denied')
+            }
+    
+            let files = await Recipe.files(recipe.id);
+    
+            files = files.map(file => `${file.path}`)
+    
+            return res.render("admin/recipes/show", { recipe, files, isAdmin: req.session.isAdmin })
+        } catch (error) {
+            console.error(error)
+            return res.redirect('/error')
         }
 
-        let files = await Recipe.files(recipe.id);
-
-        files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
-
-        return res.render("admin/recipes/recipes-adm", { recipe, files, isAdmin: req.session.isAdmin })
-
-        // Recipe.find(req.params.id, function(recipe) {
-        //     if (!recipe) return res.send("recipe not found!")
-            
-        //     recipe.created_at = date(recipe.created_at).format
-
-        //     let files = await Recipe.files(recipe.id);
-
-        //     files = files.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
-    
-
-        //     return res.render("admin/recipes/recipes-adm", { recipe, files })
-        // })
     },
     async admRecipesList(req, res) {
-        let recipes = await Recipe.allRecipes()
-        
-        if (!req.session.isAdmin) {
-            recipes = recipes.filter(recipe => recipe.user_id === req.session.userId)
+        try {
+            let recipes = await LoadRecipesService.load('recipes')
+
+            if (!req.session.isAdmin) {
+                recipes = recipes.filter(recipe => recipe.user_id === req.session.userId)
+            }
+            return res.render("admin/recipes/recipes", {recipes, isAdmin: req.session.isAdmin})
+            
+        } catch (error) {
+            console.error(error)
+            return res.redirect('/error')
         }
-
-        async function getImage(recipeId) {
-            let results = await Recipe.files(recipeId)
-
-            const files = results.map(file => `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`)
-
-            return files[0]
-        }
-
-        const recipeFilesPromises = recipes.map(async recipe => {
-            recipe.photo = await getImage(recipe.id)
-            return recipe
-        })
-
-        const allRecipes = await Promise.all(recipeFilesPromises)
-                        
-        return res.render("admin/recipes/adm-panel", {recipes: allRecipes, isAdmin: req.session.isAdmin})
-
     },
     async create(req, res) {
         
@@ -135,21 +88,26 @@ module.exports = {
                 }
             }
 
-            const user_id = req.session.userId
+            const { ingredients, preparation } = req.body
 
             const recipeValues = {
                 ...req.body,
-                user_id
+                ingredients: `{${ingredients}}`,
+                preparation: `{${preparation}}`,
+                user_id: req.session.userId
             }
 
             if (req.files.length == 0 )
                 return res.send('Please, send at least one image')
             
-            let results = await Recipe.create(recipeValues)
-            const recipeId = results.rows[0].id
+            const recipeId = await Recipe.create(recipeValues)
 
             const recipeFilesPromises = req.files.map((file) =>
-                Recipe.createFile({ file, recipe_id: recipeId})
+                Recipe.createFile({ 
+                    name: file.filename,
+                    path: `/images/${file.filename}`, 
+                    recipe_id: recipeId
+                })
             )
 
             await Promise.all(recipeFilesPromises)
@@ -160,53 +118,9 @@ module.exports = {
         }
 
     },
-    async put(req, res) {
-        try {
-            const keys = Object.keys(req.body)
-
-            for(key of keys) {
-                if (req.body[key] == "" && key != "removed_files") {
-                    return res.send('Please, fill all fields')
-                }
-            }
-
-            await Recipe.update(req.body)
-            
-            if (req.files.length != 0) {
-
-                if (!req.files.id) {
-                    const recipeFilesPromises = req.files.map((file) =>
-                    Recipe.createFile({ file, recipe_id: req.body.id})
-                    )
-                    await Promise.all(recipeFilesPromises)
-                }
-
-            }
-
-            if (req.body.removed_files) {
-                const removedFiles = req.body.removed_files.split(",")
-                const lastIndex = removedFiles.length - 1
-                removedFiles.splice(lastIndex, 1)
-    
-                const removedFilesPromise = removedFiles.map(id => File.delete(id))
-    
-                await Promise.all(removedFilesPromise)
-            }
-
-            
-
-            return res.redirect(`/admin/recipes/${req.body.id}/recipes-admpanel`)
-
-            
-        }
-        catch (error) {
-            console.error(error)
-        }
-                     
-    },
     async edit(req, res) {
         
-        let recipe = await Recipe.findOne(req.params.id)
+        let recipe = await Recipe.findOneRecipe(req.params.id)
 
         if (!recipe) throw new Error('Recipe not found');
 
@@ -226,6 +140,78 @@ module.exports = {
         return res.render("admin/recipes/edit", { recipe, files, chefOption, isAdmin: req.session.isAdmin })
 
     },
+    async put(req, res) {
+        try {
+            const keys = Object.keys(req.body)
+
+            for(key of keys) {
+                if (req.body[key] == "" && key != "removed_files") {
+                    return res.send('Please, fill all fields')
+                }
+            }
+            const {
+                title,
+                chef_id,
+                ingredients,
+                preparation,
+                information,
+                id
+            } = req.body
+
+            await Recipe.update(id, {
+                title,
+                chef_id,
+                ingredients: `{${ingredients}}`,
+                preparation: `{${preparation}}`,
+                information
+            })
+            
+            if (req.files.length != 0) {
+
+                if (!req.files.id) {
+                    const recipeFilesPromises = req.files.map((file) =>
+                        Recipe.createFile({ 
+                            name: file.filename,
+                            path: `/images/${file.filename}`, 
+                            recipe_id: id
+                        })
+                    )
+
+                    await Promise.all(recipeFilesPromises)
+                }
+
+            }
+
+            if (req.body.removed_files) {
+                const removedFiles = req.body.removed_files.split(",")
+                const lastIndex = removedFiles.length - 1
+                removedFiles.splice(lastIndex, 1)
+                
+                const unlinkRemovedFilesPromise = removedFiles.map(async fileId => 
+                    fs.unlinkSync(`public${(await File.find(fileId)).path}`)
+                )
+    
+                await Promise.all(unlinkRemovedFilesPromise)
+
+                const deleteRemovedFilesPromise = removedFiles.map(async fileId => 
+                    await File.delete(fileId)
+                )
+
+                await Promise.all(deleteRemovedFilesPromise)
+            }
+
+            
+
+            return res.redirect(`/admin/recipes/${req.body.id}`)
+
+            
+        }
+        catch (error) {
+            console.error(error)
+            return res.redirect('/error')
+        }
+                     
+    },
     async delete(req, res) {
         try {
             if (!req.session.isAdmin && recipe.user_id !== req.session.userId) {
@@ -244,6 +230,7 @@ module.exports = {
         }
         catch(error) {
             console.error(error)
+            return res.redirect('/error')
         }
         
     },
@@ -268,13 +255,10 @@ module.exports = {
         
                 const allRecipes = await Promise.all(recipeFilesPromises)
     
-                return res.render("search", { recipes: allRecipes, search, isAdmin: req.session.isAdmin })
-                // Recipe.findBy(search, function(recipes) {
-                //     return res.render("search", {recipes, search})
-                // })
+                return res.render("public/search", { recipes: allRecipes, search, isAdmin: req.session.isAdmin })
 
             } else {
-                const recipes = await Recipe.allRecipes()
+                const recipes = await Recipe.findAllRecipes()
                 async function getImage(recipeId) {
                     let results = await Recipe.files(recipeId)
         
@@ -298,6 +282,7 @@ module.exports = {
         }
         catch (error) {
             console.error(error)
+            return res.redirect('/error')
         }
         const { search } = req.query
 
@@ -308,7 +293,7 @@ module.exports = {
             })
 
         } else {
-            Recipe.allRecipes(function(recipes){
+            Recipe.findAllRecipes(function(recipes){
                 return res.render("search", {recipes, search, isAdmin: req.session.isAdmin})
     
             })

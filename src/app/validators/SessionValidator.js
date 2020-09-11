@@ -6,14 +6,14 @@ async function login(req, res, next) {
 
     const user = await User.findOne({ where: {email} })
 
-    if(!user) return res.render("session/login", {
+    if(!user) return res.render("admin/session/login", {
         user: req.body,
         error: "Usuário e/ou senha inválidos."
     })
 
     const passwordCheck = await compare(password, user.password) 
 
-    if(!passwordCheck) return res.render('session/login', { 
+    if(!passwordCheck) return res.render('admin/session/login', { 
         user: req.body,
         error: "Usuário e/ou senha inválidos."
     })
@@ -27,7 +27,7 @@ async function forgot(req, res, next) {
     try {
         let user = await User.findOne( { where: {email} })
 
-        if(!user) return res.render("session/forgot-password", {
+        if(!user) return res.render("admin/session/forgot-password", {
             user: req.body,
             error: "E-mail não cadastrado!"
         })
@@ -44,37 +44,33 @@ async function forgot(req, res, next) {
 }
 
 async function reset(req, res, next) {
-    // procurar o usuario
     const { email, password, token, password_confirmation } = req.body
 
     const user = await User.findOne({ where: {email} })
 
-    if(!user) return res.render("session/password-reset", {
+    if(!user) return res.render("admin/session/password-reset", {
         user: req.body,
         token,
         error: "Usuário não encontrado!"
     })
 
-    // ver se a senha bate
     if (password != password_confirmation)
-        return res.render('session/password-reset', {
+        return res.render('admin/session/password-reset', {
             user: req.body,
             token,
             error: "As senhas digitadas não conferem"
         })
 
-    // verfificar se o token bate
-    if (token != user.reset_token) return res.render('session/password-reset', {
+    if (token != user.reset_token) return res.render('admin/session/password-reset', {
         user: req.body,
         token,
         error: "Token inválido! Solicite uma nova recuperação de senha." 
     })
 
-    // verificar se o token não expirou
     let now = new Date()
     now = now.setHours(now.getHours())
 
-    if (now > user.reset_token_expires) return res.render('session/password-reset', {
+    if (now > user.reset_token_expires) return res.render('admin/session/password-reset', {
         user: req.body,
         token,
         error: "Token expirado. Por favor, solicite uma nova recuperação de senha." 

@@ -2,39 +2,17 @@
 <html>
     <head>
        {%block head %}{% endblock %}
-        <link rel="stylesheet" href="/style.css">
-        <link rel="stylesheet" href="/userStyle.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+        {% include 'public/parts/styles.njk' %}
+        {% include 'admin/parts/styles.njk' %}
     </head>
     <body>
         {% include "admin/messages.njk" %}
 
-        <header id="header-admin">
-            <div class="container-admin">
-                <div class="row">
-                    <a href="/" class="logo"><img src="/img/logoWhite.png" alt="Foodfy"></a>
-                    <div class="menu">
-                        <a href="/admin/recipes">RECEITAS</a>
-                        {% if (user.is_admin) or (isAdmin) %}
-                            <a href="/admin/chefs">CHEFS</a>
-                            <a href="/users/admin/list">USUÁRIOS</a>
-                        {% endif %}
-                        <form action="/users/logout" method="POST">
-                            <a href="/users/admin/profile">MEU PERFIL</a>
-                            <button>SAIR</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </header>
+        {% include "admin/parts/header.njk" %}
 
         {% block content %}{% endblock %}
-        <script src="/script.js"></script>
 
-        <footer>
-            <p>Todos os direitos reservados, receitas Foodfy.</p>
-        </footer>
+        {% include "admin/parts/footer.njk" %}
+
     </body>
 </html>

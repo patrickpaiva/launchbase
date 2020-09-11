@@ -6,7 +6,7 @@ const multer = require('../app/middlewares/multer')
 
 // chefs admin pages
 routes.get("/create", ChefsController.create)
-routes.get("/:id/chefs-admpanel", ChefsController.admChefShow)
+routes.get("/:id", ChefsController.admChefShow)
 routes.get("/", ChefsController.admChefsList)
 routes.post("/", multer.array("avatar_image", 1), ChefsController.post)
 routes.get("/:id/edit", ChefsController.edit)

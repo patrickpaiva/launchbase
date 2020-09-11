@@ -1,0 +1,78 @@
+{% extends "public/layout.njk" %}
+
+{% block head %}
+    <title>Foodfy - {{recipe.title}}</title>
+{% endblock %}
+
+{% block content %}
+<div class="recipe-container">
+    <div class="photos-container">
+        <div class="highlight">
+            {% if not files %}
+                <img src="http://placehold.it/500x500?text=PRODUTO SEM FOTO" />
+            {% else %}
+                <img 
+                    src="{{files[0]}}" 
+                    alt="{{recipe.name}}"
+                >
+            {% endif %}
+        </div>
+        <div class="photos-preview">
+            {% for image in files %}
+                <img 
+                    src="{{image}}" 
+                    alt="{{recipe.name}}"
+                    {% if loop.index0 == 0 %}
+                    class="active"
+                    {% endif %}
+                    onclick="ImageGallery.setImage(event)" 
+                >
+            {% endfor %}
+        </div>
+    </div>
+    <h1>{{recipe.title}}</h1>
+    <p class="recipe-author">por {{recipe.chef_name}}</p>
+
+    <div class="ingredients">
+        <div class="subtitle">
+            <h2>Ingredientes</h2>
+            <a onclick="hideAndShow.toggleButton(event)">ESCONDER</a> {# hidei #}
+        </div>
+
+        <div class="toggle-list"> {# ingredients #}
+            <ul>
+                {% for ingredient in recipe.ingredients %}
+                <li>{{ingredient}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="preparation">
+        <div class="subtitle">
+            <h2>Modo de Preparo</h2>
+            <a onclick="hideAndShow.toggleButton(event)">ESCONDER</a> {# hidei #}
+        </div>
+
+        <div class="toggle-list">
+            <ul>
+                {% for direction in recipe.preparation %}
+                <li>{{direction}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="aditional-information">
+        <div class="subtitle">
+            <h2>Informações Adicionais</h2>
+            <a onclick="hideAndShow.toggleButton(event)">ESCONDER</a> {# hidei #}
+        </div>
+        <div class="toggle-list">
+            <p class="information">{{recipe.information}}</p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

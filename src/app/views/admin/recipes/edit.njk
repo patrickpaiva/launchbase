@@ -35,7 +35,7 @@
 
     <form id="putForm" action="/admin/recipes/{{recipe.id}}?_method=PUT" class="card-form" method="POST" enctype="multipart/form-data">
         
-        {% include 'admin/recipes/fields.njk' %}
+        {% include 'admin/parts/recipe-fields.njk' %}
         <input type="hidden" name="id" value="{{recipe.id}}">
     </form>
     
