@@ -73,7 +73,7 @@ const { hash } = require('bcrypt')
         user_id: usersIds[Math.floor(Math.random() * totalUsers)],
         title: faker.name.title(),
         ingredients: `{${faker.lorem.paragraph(Math.ceil(Math.random() * 1)).split(" ")}}`,
-        preparation: `{${faker.lorem.paragraph(Math.ceil(Math.random() * 1)).split(".")}}`,
+        preparation: `{${faker.lorem.paragraph(Math.ceil(Math.random() * 1)).split(" ")}}`,
         information: faker.lorem.paragraph(Math.ceil(Math.random() * 5))
       })
   
